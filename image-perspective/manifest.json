@@ -1,0 +1,15 @@
+{
+  "name": "Image Perspective",
+  "short_name": "ImgPersp",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Image Perspective",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ]
+}
