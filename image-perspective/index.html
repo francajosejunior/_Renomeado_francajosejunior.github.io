@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+    />
+    <title>IMAGE PERSPECTIVE</title>
+  </head>
+
+  <body>
+    <div data-js="app"></div>
+    <div data-js="modal-app"></div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+        })
+      }
+    </script>
+  <script type="text/javascript" src="main.79992ac49d60251e85f8.js"></script></body>
+</html>
