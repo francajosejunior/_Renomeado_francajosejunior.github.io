@@ -1,1 +1,0 @@
-LOOP_GLOBAL_ENVIRONMENT = 'safra-hml'
