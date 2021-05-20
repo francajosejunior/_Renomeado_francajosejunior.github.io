@@ -198,6 +198,7 @@
 
   .vocal-icon:disabled, .vocal-icon[disabled] {
     opacity: 0.5;
+    cursor: not-allowed;
   }
 
   #status {
@@ -645,4 +646,34 @@
 .audit-trail-image {
   max-width: 200px;
   max-height: auto;
+}
+
+#additional-screen {
+  display: none;
+  opacity: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#additional-screen button {
+  min-height: 50px;
+  height: 50px;
+  width: 320px;
+  border: unset;
+  margin: 0 auto -75px;
+}
+
+#additional-screen-logo {
+  height: 70px;
+}
+
+#additional-screen-image-and-text>h2 {
+  font-size: 24px;
+  color: rgb(64, 127, 178);
+}
+
+#additional-screen-text {
+  color: rgb(64, 127, 178);
+  font-size: 16px;
 }

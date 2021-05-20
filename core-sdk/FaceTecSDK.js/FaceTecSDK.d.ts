@@ -1,7 +1,7 @@
 import { FaceTecCustomization, FaceTecOvalCustomization, FaceTecCancelButtonCustomization, FaceTecFeedbackBarCustomization, FaceTecFrameCustomization, FaceTecExitAnimationCustomization, FaceTecSessionTimerCustomization, FaceTecExitAnimationStyle, FaceTecCancelButtonLocation, FaceTecOverlayCustomization, FaceTecGuidanceCustomization, FaceTecResultScreenCustomization, FaceTecEnterFullScreenCustomization, FaceTecSecurityWatermarkImage, FaceTecSecurityWatermarkCustomization } from "./FaceTecCustomization";
 import { FaceTecLoggingMode } from "./FaceTecLogging";
 import { FaceTecSession, FaceTecSessionFromIFrame } from "./FaceTecSession";
-import { FaceTecAuditTrailType, FaceTecSDKStatus, FaceTecSessionStatus, FaceTecIDScanStatus, FaceTecFaceScanProcessor, FaceTecIDScanProcessor, FaceTecIDScanRetryMode, FaceTecIDScanNextStep, FaceTecFaceScanResultCallback, FaceTecIDScanResultCallback, FaceTecRetryScreen, InitializeCallback } from "./FaceTecPublicApi";
+import { FaceTecAuditTrailType, FaceTecSDKStatus, FaceTecSessionStatus, FaceTecIDScanStatus, FaceTecFaceScanProcessor, FaceTecIDScanProcessor, FaceTecIDScanNextStep, FaceTecFaceScanResultCallback, FaceTecIDScanResultCallback, FaceTecRetryScreen, InitializeCallback } from "./FaceTecPublicApi";
 export declare var FaceTecSDK: {
     /**
     * Initialize FaceTecSDK in development mode using a Device Identifier Key - HTTPS Log mode.
@@ -56,12 +56,8 @@ export declare var FaceTecSDK: {
     **/
     getFriendlyDescriptionForFaceTecIDScanStatus: (enumValue: FaceTecIDScanStatus) => string;
     /**
-      * FaceTecIDSCan retry front, back or both.
-    **/
-    FaceTecIDScanRetryMode: typeof FaceTecIDScanRetryMode;
-    /**
       * FaceTec SDK ID Scan process behavior on starting.
-      * Configure whether to show the ID Type Selection Screen, go directly to the ID Capture Screen for a specified ID type, or skip the entire ID Scan process and exit.
+      * Configure whether to show the ID Type Selection Screen, or skip the entire ID Scan process and exit.
     **/
     FaceTecIDScanNextStep: typeof FaceTecIDScanNextStep;
     /**

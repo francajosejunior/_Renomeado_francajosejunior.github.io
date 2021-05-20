@@ -11,7 +11,7 @@ export var Config = (function () {
     // In Production, you likely will handle network requests elsewhere and without the use of this variable.
     // See https://dev.facetec.com/#/security-best-practices?link=facetec-server-rest-endpoint-security for more information.
     // NOTE: This field is auto-populated by the FaceTec SDK Configuration Wizard.
-    var BaseURL = "https://api.facetec.com/api/v3/biometrics";
+    var BaseURL = "https://api.facetec.com/api/v3.1/biometrics";
 
     // -------------------------------------
     // REQUIRED
@@ -50,12 +50,12 @@ export var Config = (function () {
         
         // For Color Customization
         var outerBackgroundColor = "#ffffff";
-        var frameColor = "#ffffff";
-        var borderColor = "#417FB2";
-        var ovalColor = "#417FB2";
-        var dualSpinnerColor = "#417FB2";
-        var textColor = "#417FB2";
-        var buttonAndFeedbackBarColor =  "#417FB2";
+        var frameColor = "#000000";
+        var borderColor = "#000000";
+        var ovalColor = "#fc0303";
+        var dualSpinnerColor = "#008cff";
+        var textColor = "#ffffff";
+        var buttonAndFeedbackBarColor =  "#5392c6";
         var buttonAndFeedbackBarTextColor = "#ffffff";
         var buttonColorPressed = "#417FB2";
 
@@ -64,7 +64,7 @@ export var Config = (function () {
 
         // For Cancel Button Customization
         var cancelButtonImage = sdkImageDirectory + "FaceTec_cancel.png";
-        var cancelButtonLocation = FaceTecSDK.FaceTecCancelButtonLocation.TopLeft;
+        var cancelButtonLocation = FaceTecSDK.FaceTecCancelButtonLocation.Disabled;
 
         // For image Customization
         var yourAppLogoImage = sdkImageDirectory + "FaceTec_your_app_logo.png";

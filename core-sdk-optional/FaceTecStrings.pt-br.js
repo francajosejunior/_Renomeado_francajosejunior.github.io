@@ -16,9 +16,24 @@ var FaceTecStrings = {
   "FaceTec_feedback_move_web_even_closer": "Mais Próximo",
   "FaceTec_feedback_use_even_lighting": "Ilumine Seu Rosto Uniformemente",
 
-  "FaceTec_instructions_header_ready": "Prepare-se Para o Seu Vídeo Selfie",
-  "FaceTec_instructions_message_ready": "Enquadre Seu Rosto no Pequeno Oval e Depois no Grande Oval",
-  "FaceTec_action_im_ready": "ESTOU PRONTO",
+  "FaceTec_instructions_header_ready_desktop": "Get Ready For Your Video Selfie",
+  "FaceTec_instructions_header_ready_1_mobile": "Get Ready For",
+  "FaceTec_instructions_header_ready_2_mobile": "Your Video Selfie",
+  "FaceTec_instructions_message_ready_desktop": "Frame Your Face in the Oval, Press I'm Ready & Move Closer",
+  "FaceTec_instructions_message_ready_1_mobile": "Frame Your Face in the Oval,",
+  "FaceTec_instructions_message_ready_2_mobile": "Press I'm Ready & Move Closer",
+
+  "FaceTec_action_im_ready": "I'M READY",
+  "FaceTec_presession_frame_your_face": "Frame Your Face In The Oval",
+  "FaceTec_presession_look_straight_ahead": "Look Straight Ahead",
+  "FaceTec_presession_hold_steady3": "Hold Steady for: 3",
+  "FaceTec_presession_hold_steady2": "Hold Steady for: 2",
+  "FaceTec_presession_hold_steady1": "Hold Steady for: 1",
+  "FaceTec_presession_eyes_straight_ahead": "Look Straight Ahead",
+  "FaceTec_presession_remove_dark_glasses": "Remove Dark Glasses",
+  "FaceTec_presession_neutral_expression": "Neutral Expression, No Smiling",
+  "FaceTec_presession_conditions_too_bright": "Conditions Too Bright",
+  "FaceTec_presession_brighten_your_environment": "Brighten Your Environment",
 
   "FaceTec_result_facescan_upload_message": "Upload<br/>Criptografado<br/>do FaceScan 3D",
   "FaceTec_result_idscan_upload_message": "Upload<br/>Criptografado<br/>do Documento",
@@ -30,7 +45,7 @@ var FaceTecStrings = {
   "FaceTec_retry_instruction_message_1": "Expressão Neutra, Sem Sorrir",
   "FaceTec_retry_instruction_message_2": "Sem Reflexo ou Iluminação Extrema",
   "FaceTec_retry_instruction_message_3": "Muito borrado, limpe sua câmera",
-  "FaceTec_action_ok": "OK",
+  "FaceTec_action_try_again": "TRY AGAIN",
 
   "FaceTec_camera_feed_issue_header": "<b>Issue Encrypting Camera Feed</b>",
   "FaceTec_camera_feed_issue_subheader_message": "This system cannot be verified due to the following:",
@@ -50,7 +65,7 @@ var FaceTecStrings = {
 
   "FaceTec_camera_permission_header": "Ativar Câmera",
   "FaceTec_camera_permission_message": "O acesso à câmera está desativado. Toque abaixo para ativar em ajustes.",
-  "FaceTec_camera_permission_launch_settings": "OK",
+  "FaceTec_action_ok": "OK",
 
   "FaceTec_enter_fullscreen_header": "Full Screen Selfie Mode",
   "FaceTec_enter_fullscreen_message": "Before we begin, please click the button below to open full screen mode",
@@ -71,6 +86,7 @@ var FaceTecStrings = {
   "FaceTec_idscan_review_passport_instruction_message": "Confirme Se a Foto Está Clara e Legível",
   "FaceTec_action_accept_photo": "ACEITAR",
   "FaceTec_action_retake_photo": "RECAPTURAR",
+
   "FaceTec_result_idscan_unsuccess_message": "Foto do Documento Nāo Corresponde com Rosto do Usuário",
 
   "FaceTec_result_success_message": "Sucesso!"

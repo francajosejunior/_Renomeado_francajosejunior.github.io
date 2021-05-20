@@ -3,8 +3,9 @@
 //
 
 import { Config } from "../../../../Config";
-import { FaceTecSDK } from "../../../../core-sdk/FaceTecSDK.js/FaceTecSDK.js";
-import type { FaceTecSessionResult, FaceTecFaceScanResultCallback, FaceTecFaceScanProcessor } from "../../../../core-sdk/FaceTecSDK.js/FaceTecPublicApi.js";
+import { FaceTecSDK } from "../../../../core-sdk/FaceTecSDK.js/FaceTecSDK";
+import type { FaceTecSessionResult, FaceTecFaceScanResultCallback, FaceTecFaceScanProcessor } from "../../../../core-sdk/FaceTecSDK.js/FaceTecPublicApi";
+import { SampleAppControllerReference } from "../sampleAppControllerReference/SampleAppControllerReference";
 
 //
 // This is an example self-contained class to perform Liveness Checks with the FaceTec SDK.
@@ -19,7 +20,7 @@ export class LivenessCheckProcessor implements FaceTecFaceScanProcessor {
   // In the code in your own App, you can pass around signals, flags, intermediates, and results however you would like.
   //
   success: boolean;
-  sampleAppControllerReference: any;
+  sampleAppControllerReference: SampleAppControllerReference;
 
   constructor(sessionToken: string, sampleAppControllerReference: any) {
 
@@ -49,8 +50,8 @@ export class LivenessCheckProcessor implements FaceTecFaceScanProcessor {
   //
   public processSessionResultWhileFaceTecSDKWaits(sessionResult: FaceTecSessionResult, faceScanResultCallback: FaceTecFaceScanResultCallback) {
 
-    var _this = this;
-    _this.latestSessionResult = sessionResult;
+    // Save the current sessionResult
+    this.latestSessionResult = sessionResult;
 
     //
     // Part 3:  Handles early exit scenarios where there is no FaceScan to handle -- i.e. User Cancellation, Timeouts, etc.
@@ -88,37 +89,29 @@ export class LivenessCheckProcessor implements FaceTecFaceScanProcessor {
     this.latestNetworkRequest.onreadystatechange = () => {
 
       //
-      // Part 6:  In our Sample, we evaluate a boolean response and treat true as success, false as "User Needs to Retry",
-      // and handle all other non-nominal responses by cancelling out.  You may have different paradigms in your own API and are free to customize based on these.
+      // Part 6:  In our Sample, we evaluate a boolean response and treat true as was successfully processed and should proceed to next step,
+      // and handle all other responses by cancelling out.
+      // You may have different paradigms in your own API and are free to customize based on these.
       //
 
       if(this.latestNetworkRequest.readyState === XMLHttpRequest.DONE) {
         try {
-          var responseJSON = JSON.parse(this.latestNetworkRequest.responseText);
+          const responseJSON = JSON.parse(this.latestNetworkRequest.responseText);
+          const scanResultBlob = responseJSON.scanResultBlob;
 
-          if(responseJSON.success === true) {
-            // CASE:  Success!  The Liveness Check was performed and the User Proved Liveness.
-
-            //
-            // DEVELOPER NOTE:  These properties are for demonstration purposes only so the Sample App can get information about what is happening in the processor.
-            // In the code in your own App, you can pass around signals, flags, intermediates, and results however you would like.
-            //
-            this.success = true;
+          // In v9.2.0+, we key off a new property called wasProcessed to determine if we successfully processed the Session result on the Server.
+          // Device SDK UI flow is now driven by the proceedToNextStep function, which should receive the scanResultBlob from the Server SDK response.
+          if(responseJSON.wasProcessed) {
 
             // Demonstrates dynamically setting the Success Screen Message.
             FaceTecSDK.FaceTecCustomization.setOverrideResultScreenSuccessMessage("Liveness\nConfirmed");
-            faceScanResultCallback.succeed();
-          }
-          else if(responseJSON.success === false) {
-            // CASE:  In our Sample code, "success" being present and false means that the User Needs to Retry.
-            // Real Users will likely succeed on subsequent attempts after following on-screen guidance.
-            // Attackers/Fraudsters will continue to get rejected.
-            console.log("User needs to retry, invoking retry.");
-            var retryScreenType = responseJSON.retryScreenEnumInt === 1 ? FaceTecSDK.FaceTecRetryScreen.ShowCameraFeedIssueScreenIfRejected : FaceTecSDK.FaceTecRetryScreen.ShowStandardRetryScreenIfRejected;
-            faceScanResultCallback.retry(retryScreenType);
+
+            // In v9.2.0+, simply pass in scanResultBlob to the proceedToNextStep function to advance the User flow.
+            // scanResultBlob is a proprietary, encrypted blob that controls the logic for what happens next for the User.
+            faceScanResultCallback.proceedToNextStep(scanResultBlob);
           }
           else {
-            // CASE:  UNEXPECTED response from API.  Our Sample Code keys of a success boolean on the root of the JSON object --> You define your own API contracts with yourself and may choose to do something different here based on the error.
+            // CASE:  UNEXPECTED response from API.  Our Sample Code keys off a wasProcessed boolean on the root of the JSON object --> You define your own API contracts with yourself and may choose to do something different here based on the error.
             console.log("Unexpected API response, cancelling out.");
             faceScanResultCallback.cancel();
           }
@@ -131,7 +124,7 @@ export class LivenessCheckProcessor implements FaceTecFaceScanProcessor {
       }
     };
 
-    this.latestNetworkRequest.onerror = function() {
+    this.latestNetworkRequest.onerror = () => {
 
       // CASE:  Network Request itself is erroring --> You define your own API contracts with yourself and may choose to do something different here based on the error.
       console.log("XHR error, cancelling.");
@@ -141,7 +134,7 @@ export class LivenessCheckProcessor implements FaceTecFaceScanProcessor {
     //
     // Part 7:  Demonstrates updating the Progress Bar based on the progress event.
     //
-    this.latestNetworkRequest.upload.onprogress = function name(event) {
+    this.latestNetworkRequest.upload.onprogress = (event) => {
 
       var progress = event.loaded / event.total;
       faceScanResultCallback.uploadProgress(progress);
@@ -168,22 +161,21 @@ export class LivenessCheckProcessor implements FaceTecFaceScanProcessor {
   //
   // Part 10:  This function gets called after the FaceTec SDK is completely done.  There are no parameters because you have already been passed all data in the processSessionWhileFaceTecSDKWaits function and have already handled all of your own results.
   //
-  public onFaceTecSDKCompletelyDone() {
+  public onFaceTecSDKCompletelyDone = () => {
 
     //
     // DEVELOPER NOTE:  onFaceTecSDKCompletelyDone() is called after you signal the FaceTec SDK with success() or cancel().
     // Calling a custom function on the Sample App Controller is done for demonstration purposes to show you that here is where you get control back from the FaceTec SDK.
     //
-
-    var _this = this;
-    this.sampleAppControllerReference.onComplete(_this.latestSessionResult, null);
+    this.success = this.latestSessionResult!.isCompletelyDone;
+    this.sampleAppControllerReference.onComplete(this.latestSessionResult, null, this.latestNetworkRequest.status);
   }
 
   //
   // DEVELOPER NOTE:  This public convenience method is for demonstration purposes only so the Sample App can get information about what is happening in the processor.
   // In your code, you may not even want or need to do this.
   //
-  public isSuccess() {
+  public isSuccess = () => {
     return this.success;
   }
 }

@@ -37,13 +37,13 @@ export class PhotoIDMatchProcessor implements FaceTecIDScanProcessor {
 
     // DEVELOPER TODOS:
     // 1.  Call your own API with the above data and pass into the Server SDK
-    // 2.  If enrollment Succeeded, call succeed()
-    // 3.  If enrollment Was Not Completed, the User Needs to Retry, so call retry()
-    // 4.  cancel() is provided in case you detect issues with your own API
-    // 5.  uploadProgress(progress) is provided to control the Progress Bar.
+    // 2.  If the Server SDK successfully processes the data, call proceedToNextStep(scanResultBlob), passing in the generated scanResultBlob to the parameter.
+    //     If the Session Result object's isCompletelyDone value is true, the FaceScan part of the Session was successful and will be proceeding to the ID Scan.
+    //     If the Session Result object's isCompletelyDone value is false, the Session will be proceeding to a retry of the FaceScan.
+    // 3.  cancel() is provided in case you detect issues with your own API, such as errors processing and returning the scanResultBlob.
+    // 4.  uploadProgress(yourUploadProgressFloat) is provided to control the Progress Bar.
 
-    // faceScanResultCallback.succeed();
-    // faceScanResultCallback.retry();
+    // faceScanResultCallback.proceedToNextStep(scanResultBlob)
     // faceScanResultCallback.cancel();
     // faceScanResultCallback.uploadProgress(yourUploadProgressFloat)
   }
@@ -71,14 +71,14 @@ export class PhotoIDMatchProcessor implements FaceTecIDScanProcessor {
 
     // DEVELOPER TODOS:
     // 1.  Call your own API with the above data and pass into the Server SDK
-    // 2.  If ID Scan Succeeded, call succeed()
-    // 3.  If ID Scan did not pass quality, spoofing, or matching checks, the User Needs to Retry, so call retry()
-    // 4.  cancel() is provided in case you detect issues with your own API
-    // 5.  uploadProgress(progress) is provided to control the Progress Bar.
+    // 2.  If the Server SDK successfully processes the data, call proceedToNextStep(scanResultBlob), passing in the generated scanResultBlob to the parameter.
+    //     If the Session Result object's isCompletelyDone value is true, the ID Scan part of the Session was successful and onFaceTecSDKCompletelyDone() will be called next.
+    //     If the Session Result object's isCompletelyDone value is false, the ID Scan Session is continuing to advance through the User Flow, passing back another Session Result once the next step in the User Flow is complete and ready to be processed by the Server SDK.
+    // 3.  cancel() is provided in case you detect issues with your own API, such as errors processing and returning the scanResultBlob.
+    // 4.  uploadProgress(yourUploadProgressFloat) is provided to control the Progress Bar.
 
-    // idScanResultCallback.succeed();
-    // idScanResultCallback.retry();
-    // idScanResultCallback.cancel();
+    // idScanResultCallback.proceedToNextStep(scanResultBlob)
+    // idScanResultCallback.cancel()
     // idScanResultCallback.uploadProgress(yourUploadProgressFloat)
   }
 
