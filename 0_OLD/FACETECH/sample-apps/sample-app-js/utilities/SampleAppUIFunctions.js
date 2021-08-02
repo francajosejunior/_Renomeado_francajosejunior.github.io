@@ -6,14 +6,14 @@ var SampleAppUIFunctions = function (elementString) {
     var saveDisplayForElement = function (el) {
         var display = window.getComputedStyle(el).display;
         if (display && display !== "none") {
-            el.setAttribute("display", display);
+            el.setAttribute("displaytype", display);
         }
     };
     // Set the display of the element to either block or restore it's original value
     var setDisplayForElement = function (el) {
         var display = "block";
-        if (el.getAttribute("display")) {
-            display = el.getAttribute("display");
+        if (el.getAttribute("displaytype")) {
+            display = el.getAttribute("displaytype");
         }
         el.style.display = display;
     };
@@ -22,7 +22,7 @@ var SampleAppUIFunctions = function (elementString) {
         if (!el) {
             return;
         }
-        opacity = opacity || 1;
+        opacity = opacity || "1";
         duration = duration || 1;
         var computedStyle = window.getComputedStyle(el);
         if (computedStyle.display === "none" && computedStyle.opacity === "1") {
@@ -31,8 +31,11 @@ var SampleAppUIFunctions = function (elementString) {
         el.style.visibility = "visible";
         saveDisplayForElement(el);
         setDisplayForElement(el);
+        //@ts-ignore
         el.style["-webkit-transition"] = "opacity " + duration + "ms";
+        //@ts-ignore
         el.style["-moz-transition"] = "opacity " + duration + "ms";
+        //@ts-ignore
         el.style["-o-transition"] = "opacity " + duration + "ms";
         el.style["transition"] = "opacity " + duration + "ms";
         // Allow JS to clear execution stack
@@ -41,11 +44,12 @@ var SampleAppUIFunctions = function (elementString) {
                 el.style.opacity = opacity;
             });
         });
-        if (callback) {
-            window.setTimeout(function () {
+        window.setTimeout(function () {
+            setDisplayForElement(el);
+            if (callback) {
                 callback();
-            }, duration);
-        }
+            }
+        }, duration);
     };
     // Fade out the element to opacity over duration ms with an optional callback
     var fadeOut = function (el, opacity, duration, callback) {
@@ -53,10 +57,13 @@ var SampleAppUIFunctions = function (elementString) {
             return;
         }
         saveDisplayForElement(el);
-        opacity = opacity || 0;
+        opacity = opacity || "0";
         duration = duration || 1;
+        //@ts-ignore
         el.style["-webkit-transition"] = "opacity " + duration + "ms";
+        //@ts-ignore
         el.style["-moz-transition"] = "opacity " + duration + "ms";
+        //@ts-ignore
         el.style["-o-transition"] = "opacity " + duration + "ms";
         el.style["transition"] = "opacity " + duration + "ms";
         // Allow JS to clear execution stack
@@ -66,6 +73,7 @@ var SampleAppUIFunctions = function (elementString) {
             });
         });
         window.setTimeout(function () {
+            el.style.display = "none";
             if (callback) {
                 callback();
             }
@@ -74,12 +82,12 @@ var SampleAppUIFunctions = function (elementString) {
     return {
         fadeOut: function (duration, callback) {
             currentElements.forEach(function (element) {
-                fadeOut(element, 0, duration, callback);
+                fadeOut(element, "0", duration, callback);
             });
         },
         fadeIn: function (duration, callback) {
             currentElements.forEach(function (element) {
-                fadeIn(element, 1, duration, callback);
+                fadeIn(element, "1", duration, callback);
             });
         },
         show: function () {

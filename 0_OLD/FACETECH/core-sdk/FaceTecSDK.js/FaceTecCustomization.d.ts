@@ -1,5 +1,4 @@
 import { FaceTecVocalGuidanceMode } from "./FaceTecPublicApi";
-import { LightModeState } from "./LightModeState";
 export declare enum FaceTecExitAnimationStyle {
     None = 0,
     RippleOut = 1,
@@ -194,10 +193,15 @@ export interface FaceTecOvalCustomization {
 }
 export interface FaceTecIDScanCustomization {
     /**
-    * Image displayed on the ID Scan Select ID Document page.
+    * Controls whether to show the 'FaceTec_branding_logo_id_check' image (or image configured with .selectionScreenBrandingImage) on the Identity Document Type Selection Screen.
     * Default is false (hidden).
     */
     showSelectionScreenBrandingImage: boolean;
+    /**
+     * Controls whether to show the 'FaceTec_document' image (or image configured with .selectionScreenDocumentImage) on the Identity Document Type Selection Screen.
+     * Default is true (visible).
+     */
+    showSelectionScreenDocumentImage: boolean;
     /**
      * Color of the text displayed on the Identity Document Type Selection Screen (not including the action button text).
      * Default is off-black.
@@ -323,10 +327,15 @@ export interface FaceTecIDScanCustomization {
      */
     selectionScreenBackgroundColors: string;
     /**
-     * Image displayed on the Identity Document Type Selection Screen.
+     * Image displayed along the top of the Identity Document Type Selection Screen.
      * Default is configured to use image named 'FaceTec_branding_logo_id_check' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
      */
     selectionScreenBrandingImage: string;
+    /**
+     * Image displayed in the middle of the Identity Document Type Selection Screen.
+     * Default is configured to use image named 'FaceTec_document' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
+     */
+    selectionScreenDocumentImage: string;
     /**
      * Color of the text displayed on the Identity Document Capture Screen (not including the action button text).
      * Default is white.
@@ -450,6 +459,38 @@ export interface FaceTecIDScanCustomization {
      */
     captureScreenPassportCheckmarkImage: string;
 }
+export interface FaceTecOCRConfirmationCustomization {
+    backgroundColors: string;
+    mainHeaderDividerLineColor: string;
+    mainHeaderDividerLineWidth: string;
+    mainHeaderFont: string;
+    mainHeaderTextColor: string;
+    sectionHeaderFont: string;
+    sectionHeaderTextColor: string;
+    fieldLabelFont: string;
+    fieldLabelTextColor: string;
+    fieldValueFont: string;
+    fieldValueTextColor: string;
+    inputFieldBackgroundColor: string;
+    inputFieldFont: string;
+    inputFieldTextColor: string;
+    inputFieldBorderColor: string;
+    inputFieldBorderWidth: string;
+    inputFieldCornerRadius: string;
+    inputFieldPlaceholderFont: string;
+    inputFieldPlaceholderTextColor: string;
+    showInputFieldBottomBorderOnly: boolean;
+    buttonFont: string;
+    buttonBorderWidth: string;
+    buttonBorderColor: string;
+    buttonCornerRadius: string;
+    buttonTextNormalColor: string;
+    buttonTextHighlightColor: string;
+    buttonTextDisabledColor: string;
+    buttonBackgroundNormalColor: string;
+    buttonBackgroundHighlightColor: string;
+    buttonBackgroundDisabledColor: string;
+}
 export interface FaceTecSecurityWatermarkCustomization {
     securityWatermarkImage: FaceTecSecurityWatermarkImage;
 }
@@ -481,6 +522,8 @@ export declare class FaceTecCustomization {
     resultScreenCustomization: FaceTecResultScreenCustomization;
     /** Customize the FaceTec Browser SDK Photo ID Match Screens. */
     idScanCustomization: FaceTecIDScanCustomization;
+    /** Customize the FaceTec Browser SDK User OCR Confirmation Screen. */
+    ocrConfirmationCustomization: FaceTecOCRConfirmationCustomization;
     /** Customize the FaceTec Browser SDK IFrame Enter Full Screen User Interface.
      * This customization is only active when the FaceTec Browser SDK is loaded in an IFrame.
      * Permission from FaceTec is required to run the FaceTec Browser SDK in an iFrame.
@@ -502,12 +545,19 @@ export declare class FaceTecCustomization {
     /** For non-production instances, display the clickable Development Mode Tag link during the Result Screen. */
     enableDevelopmentModeTag: boolean;
     /**
-     * This function allows special runtime control of the success message shown when the success animation occurs.
+     * This function allows special runtime control of the success message shown when the success animation occurs for a FaceScan.
      * Please note that you can also customize this string via the standard customization/localization methods provided by the FaceTec Browser SDK.
      * Special runtime access is enabled to this text because the developer may wish to change this text depending on the FaceTec Browser SDK's mode of operation.
+     * This method does not update the success message for an ID Scan. For runtime control over the result messages displayed for an ID Scan, use the method setIDScanResultScreenMessageOverrides.
      * Default is in the customizable localization string "FaceTec_result_success_message".
      */
     static setOverrideResultScreenSuccessMessage: (message: string) => void;
+    /**
+     * This function allows special runtime control of the various possible result messages shown when the result animation occurs for an ID Scan Session.<br>
+     * Please note that you can also customize these strings via the standard customization/localization methods provided.<br>
+     * Special runtime access is enabled to this text because the developer may wish to change this text depending on the mode of operation.
+     */
+    static setIDScanResultScreenMessageOverrides: (successFrontSide: string, successFrontSideBackNext: string, successBackSide: string, successUserConfirmation: string, retryFaceDidNotMatch: string, retryIDNotFullyVisible: string, retryOCRResultsNotGoodEnough: string) => void;
     /**
      * Constructor for FaceTecCustomization object.
      *
@@ -518,7 +568,7 @@ export declare class FaceTecCustomization {
     }[] | any[]);
     [key: string]: {
         key: string;
-    }[] | boolean | FaceTecVocalGuidanceCustomization | FaceTecSecurityWatermarkCustomization | FaceTecEnterFullScreenCustomization | FaceTecIDScanCustomization | FaceTecOvalCustomization | FaceTecFeedbackBarCustomization | FaceTecFrameCustomization | FaceTecExitAnimationCustomization | FaceTecCancelButtonCustomization | FaceTecSessionTimerCustomization | FaceTecInitialLoadingAnimationCustomization | FaceTecGuidanceCustomization | FaceTecOverlayCustomization | FaceTecResultScreenCustomization | string;
+    }[] | boolean | FaceTecVocalGuidanceCustomization | FaceTecSecurityWatermarkCustomization | FaceTecEnterFullScreenCustomization | FaceTecOCRConfirmationCustomization | FaceTecIDScanCustomization | FaceTecOvalCustomization | FaceTecFeedbackBarCustomization | FaceTecFrameCustomization | FaceTecExitAnimationCustomization | FaceTecCancelButtonCustomization | FaceTecSessionTimerCustomization | FaceTecInitialLoadingAnimationCustomization | FaceTecGuidanceCustomization | FaceTecOverlayCustomization | FaceTecResultScreenCustomization | string;
 }
 /**
  * DEPRECATED
@@ -1391,7 +1441,6 @@ export declare class FaceTecResultScreenCustomization {
 }
 /**
  * Customize the FaceTec Photo ID Match Screens.
- * .selectionScreenBackgroundColors will be implemented in an upcoming release of the FaceTec Browser SDK.
  * .reviewScreenForegroundColor will be implemented in an upcoming release of the FaceTec Browser SDK.
  * .reviewScreenTextBackgroundColor will be implemented in an upcoming release of the FaceTec Browser SDK.
  * .reviewScreenTextBackgroundBorderColor will be implemented in an upcoming release of the FaceTec Browser SDK.
@@ -1403,10 +1452,15 @@ export declare class FaceTecResultScreenCustomization {
 export declare class FaceTecIDScanCustomization {
     private defaultLocationForImages;
     /**
-    * Image displayed on the ID Scan Select ID Document page.
+    * Controls whether to show the 'FaceTec_branding_logo_id_check' image (or image configured with .selectionScreenBrandingImage) on the Identity Document Type Selection Screen.
     * Default is false (hidden).
     */
     showSelectionScreenBrandingImage: boolean;
+    /**
+     * Controls whether to show the 'FaceTec_document' image (or image configured with .selectionScreenDocumentImage) on the Identity Document Type Selection Screen.
+     * Default is true (visible).
+     */
+    showSelectionScreenDocumentImage: boolean;
     /**
      * Color of the text displayed on the Identity Document Type Selection Screen (not including the action button text).
      * Default is off-black.
@@ -1526,10 +1580,15 @@ export declare class FaceTecIDScanCustomization {
      */
     selectionScreenBackgroundColors: string;
     /**
-     * Image displayed on the Identity Document Type Selection Screen.
+     * Image displayed along the top of the Identity Document Type Selection Screen.
      * Default is configured to use image named 'FaceTec_branding_logo_id_check' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
      */
     selectionScreenBrandingImage: string;
+    /**
+     * Image displayed in the middle of the Identity Document Type Selection Screen.
+     * Default is configured to use image named 'FaceTec_document' located in '/FaceTec_images/' directory (or custom configured default directory for FaceTec Browser SDK images).
+     */
+    selectionScreenDocumentImage: string;
     /**
      * Color of the text displayed on the Identity Document Capture Screen (not including the action button text).
      * Default is white.
@@ -1656,6 +1715,167 @@ export declare class FaceTecIDScanCustomization {
     constructor();
     [key: string]: string | boolean;
 }
+export declare class FaceTecOCRConfirmationCustomization {
+    /**
+     * Color of the User OCR Confirmation Screen background.
+     * Default is white.
+     */
+    backgroundColors: string;
+    /**
+     * Color of the line below the main header on the User OCR Confirmation Screen.
+     * Default is custom color.
+     */
+    mainHeaderDividerLineColor: string;
+    /**
+     * Thickness of the line below the main header on the User OCR Confirmation Screen.
+     * Default is dynamically configured per device at runtime.
+     */
+    mainHeaderDividerLineWidth: string;
+    /**
+     * Font of the the main header text on the User OCR Confirmation Screen.
+     * Accepts any value assignable to the fontFamily CSS attribute.
+     */
+    mainHeaderFont: string;
+    /**
+     * Color of the main header text on the User OCR Confirmation Screen.
+     * Default is custom color.
+     */
+    mainHeaderTextColor: string;
+    /**
+     * Font of the section headers' text on the User OCR Confirmation Screen.
+     * Accepts any value assignable to the fontFamily CSS attribute.
+     */
+    sectionHeaderFont: string;
+    /**
+     * Color of the section headers' text on the User OCR Confirmation Screen.
+     * Default is off-black.
+     */
+    sectionHeaderTextColor: string;
+    /**
+     * Font of the field labels' text on the User OCR Confirmation Screen.
+     * Accepts any value assignable to the fontFamily CSS attribute.
+     */
+    fieldLabelFont: string;
+    /**
+     * Color of the field labels' text on the User OCR Confirmation Screen.
+     * Default is off-black.
+     */
+    fieldLabelTextColor: string;
+    /**
+     * Font of the field values' text on the User OCR Confirmation Screen.
+     * Accepts any value assignable to the fontFamily CSS attribute.
+     */
+    fieldValueFont: string;
+    /**
+     * Color of the field values' text on the User OCR Confirmation Screen.
+     * Default is off-black.
+     */
+    fieldValueTextColor: string;
+    /**
+     * Color of the input fields' backgrounds on the User OCR Confirmation Screen.
+     * Default is transparent.
+     */
+    inputFieldBackgroundColor: string;
+    /**
+     * Font of the input fields' text on the User OCR Confirmation Screen.
+     * Accepts any value assignable to the fontFamily CSS attribute.
+     * If this value is an empty string, the value configured for .fieldValueFont will be used.
+     * Default is an empty string.
+     */
+    inputFieldFont: string;
+    /**
+     * Color of the input fields' text on the User OCR Confirmation Screen.
+     * If this value is an empty string, the value configured for .fieldValueTextColor will be used.
+     * Default is an empty string.
+     */
+    inputFieldTextColor: string;
+    /**
+     * Color of the input fields' borders on the User OCR Confirmation Screen.
+     * Default is off-black.
+     */
+    inputFieldBorderColor: string;
+    /**
+     * Thickness of the input fields' borders on the User OCR Confirmation Screen.
+     * Default is dynamically configured per device at runtime.
+     */
+    inputFieldBorderWidth: string;
+    /**
+     * Corner radius of the input fields' borders on the User OCR Confirmation Screen.
+     * Default is dynamically configured per device at runtime.
+     */
+    inputFieldCornerRadius: string;
+    /**
+     * Font of the input fields' placeholder text on the User OCR Confirmation Screen.
+     * Accepts any value assignable to the fontFamily CSS attribute.
+     * If this value is an empty string, the value configured for .inputFieldFont will be used unless that value is an empty string, in which case the value configured for .fieldValueFont will be used.
+     * Default is an empty string.
+     */
+    inputFieldPlaceholderFont: string;
+    /**
+     * Color of the input fields' placeholder text on the User OCR Confirmation Screen.
+     * If this value is an empty string, the value configured for .inputFieldTextColor will be used with a 0.4 alpha component unless that value is an empty string, in which case the value configured for .fieldValueFont will be used with a 0.4 alpha component.
+     * Default is an empty string.
+     */
+    inputFieldPlaceholderTextColor: string;
+    /**
+     * Control whether the input fields' borders are only displayed along the bottom bounds, or if they are displayed as a full box around the input fields on the User OCR Confirmation Screen.<br>
+     * Default is false (showing full border box around input fields).
+     */
+    showInputFieldBottomBorderOnly: boolean;
+    /**
+     * Font of the action button's text during the User OCR Confirmation Screen.
+     * Accepts any value assignable to the fontFamily CSS attribute.
+     */
+    buttonFont: string;
+    /**
+     * Thickness of the action button's border during the User OCR Confirmation Screen.
+     * Default is dynamically configured per device at runtime.
+     */
+    buttonBorderWidth: string;
+    /**
+     * Color of the action button's border during the User OCR Confirmation Screen.
+     * Default is transparent.
+     */
+    buttonBorderColor: string;
+    /**
+     * Corner radius of the action button's border during the User OCR Confirmation Screen.
+     * Default is dynamically configured per device at runtime.
+     */
+    buttonCornerRadius: string;
+    /**
+     * Color of the action button's text during the User OCR Confirmation Screen.
+     * Default is white.
+     */
+    buttonTextNormalColor: string;
+    /**
+     * Color of the action button's text when the button is pressed during the User OCR Confirmation Screen.
+     * Default is white.
+     */
+    buttonTextHighlightColor: string;
+    /**
+     * Color of the action button's text when the button is disabled during the User OCR Confirmation Screen.
+     * Default is white.
+     */
+    buttonTextDisabledColor: string;
+    /**
+     * Color of the action button's background during the User OCR Confirmation Screen.
+     * Default is custom FaceTec Browser SDK color.
+     */
+    buttonBackgroundNormalColor: string;
+    /**
+     * Color of the action button's background when the button is pressed during the User OCR Confirmation Screen.
+     * Default is custom FaceTec Browser SDK color.
+     */
+    buttonBackgroundHighlightColor: string;
+    /**
+     * Color of the action button's background when the button is disabled during the User OCR Confirmation Screen.
+     * Default is custom FaceTec Browser SDK color.
+     */
+    buttonBackgroundDisabledColor: string;
+    /** Constructor for FaceTecOCRConfirmationCustomization object. */
+    constructor();
+    [key: string]: string | boolean;
+}
 export declare class FaceTecSecurityWatermarkCustomization {
     securityWatermarkImage: FaceTecSecurityWatermarkImage;
     constructor();
@@ -1701,6 +1921,17 @@ export declare class FaceTecVocalGuidanceCustomization {
     constructor();
 }
 export declare var FaceTecCustomizations: {
+    idScanResultScreenMessageOverrides: {
+        0?: string | null | undefined;
+        1?: string | null | undefined;
+        2?: string | null | undefined;
+        3?: string | null | undefined;
+        4?: string | null | undefined;
+        5?: string | null | undefined;
+        6?: string | null | undefined;
+        7?: string | null | undefined;
+        8?: string | null | undefined;
+    };
     overrideResultScreenSuccessMessageObject: {
         message: string;
     };
@@ -1712,10 +1943,6 @@ export declare var FaceTecCustomizations: {
     currentCustomization: FaceTecCustomization;
     currentLowLightCustomization: () => FaceTecCustomization | null;
     currentDynamicDimmingCustomization: () => FaceTecCustomization | null;
-    activeLightMode: () => LightModeState;
-    setActiveLightMode: (lightMode: LightModeState) => void;
-    shouldUseLowLightCustomization: () => boolean;
-    shouldUseDynamicDimmingCustomization: () => boolean;
     setImagesDirectory: (directory: string) => void;
     verifyColorCustomizations: (latestCustomization: FaceTecCustomization) => void;
     FaceTecOvalCustomization: typeof FaceTecOvalCustomization;

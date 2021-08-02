@@ -36,14 +36,14 @@ export class EnrollmentProcessor implements FaceTecFaceScanProcessor {
 
     // DEVELOPER TODOS:
     // 1.  Call your own API with the above data and pass into the Server SDK
-    // 2.  If Enrollment Succeeded, call succeed()
-    // 3.  If Enrollment Was Not Completed, the User Needs to Retry, so call retry()
-    // 4.  cancel() is provided in case you detect issues with your own API
-    // 5.  uploadProgress(progress) is provided to control the Progress Bar.
+    // 2.  If the Server SDK successfully processes the data, call proceedToNextStep(scanResultBlob), passing in the generated scanResultBlob to the parameter.
+    //     If the Session Result object's isCompletelyDone value is true, the Session was successful and onFaceTecSDKCompletelyDone() will be called next.
+    //     If the Session Result object's isCompletelyDone value is false, the Session will be proceeding to a retry of the FaceScan.
+    // 3.  cancel() is provided in case you detect issues with your own API, such as errors processing and returning the scanResultBlob.
+    // 4.  uploadProgress(yourUploadProgressFloat) is provided to control the Progress Bar.
 
-    // faceScanResultCallback.succeed();
-    // faceScanResultCallback.retry();
-    // faceScanResultCallback.cancel();
+    // faceScanResultCallback.proceedToNextStep(scanResultBlob)
+    // faceScanResultCallback.cancel()
     // faceScanResultCallback.uploadProgress(yourUploadProgressFloat)
   }
 

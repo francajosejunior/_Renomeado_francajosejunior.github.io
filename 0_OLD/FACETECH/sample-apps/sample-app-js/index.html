@@ -29,7 +29,18 @@
 	<script type="text/javascript" src="./utilities/SampleAppUIFunctions.js"></script>
 	<script type="text/javascript" src="./utilities/SampleAppUtilities.js"></script>
 	<script type="text/javascript" src="./utilities/ThemeHelpers.js"></script>
+	<script type="text/javascript" src="./utilities/AdditionalScreens.js"></script>
+	<script type="text/javascript" src="./utilities/SoundFileUtilities.js"></script>
 	<script type="text/javascript" src="./sampleAppController.js?v1"></script>
+	<script >
+		const ServerUpgradeLogo = '../../../../sample-app-resources/images/upgrade.png'
+		const FACESCAN_SUCCESSFUL_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/facescan_successful_sound_file.mp3'
+		const PLEASE_FRAME_YOUR_FACE_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/please_frame_your_face_sound_file.mp3'
+		const PLEASE_MOVE_CLOSER_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/please_move_closer_sound_file.mp3'
+		const PLEASE_PRESS_BUTTON_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/please_press_button_sound_file.mp3'
+		const PLEASE_RETRY_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/please_retry_sound_file.mp3'
+		const UPLOADING_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/uploading_sound_file.mp3'
+	</script >
 </head>
 <body>
   <div class="wrapping-box-container">
@@ -47,6 +58,14 @@
         <button id="audit-trail-button" disabled onclick="SampleApp.onViewAuditTrailPressed()" class="medium-button">View Audit Trail</button>
         <button id="design-showcase-button" disabled onclick="SampleApp.onDesignShowcasePressed()" class="medium-button">Design Showcase</button>
         <p id="status">Initializing...</p>
+      </div>
+      <div id="additional-screen" display="flex">
+        <div id="additional-screen-image-and-text">
+          <img id="additional-screen-logo">
+          <h2>Server Upgrade In Progress</h2>
+          <div id="additional-screen-text"></div>
+        </div>
+        <button id="additional-screen-button" class="big-button browser-button"">OK</button>
       </div>
     </div>
     <div id="custom-logo-container">

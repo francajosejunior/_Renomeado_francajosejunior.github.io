@@ -4,8 +4,10 @@ import { FaceTecCustomization } from "../../../../core-sdk/FaceTecSDK.js/FaceTec
 import { SampleAppUtilities } from "./SampleAppUtilities";
 
 export var ThemeHelpers = (function() {
-  var currentTheme = "";
-  var themeResourceDirectory = "../../../../sample-app-resources/images/themes/";
+
+  // Set the default theme
+  var currentTheme: string = "FaceTec Theme";
+  var themeResourceDirectory = "../../sample-app-resources/images/themes/";
 
   function setAppTheme(theme: string) {
     Config.currentCustomization = getCustomizationForTheme(theme);
@@ -91,6 +93,8 @@ export var ThemeHelpers = (function() {
       currentCustomization.guidanceCustomization.enableRetryScreenSlideshowShuffle = true;
       currentCustomization.guidanceCustomization.cameraPermissionsScreenImage = themeResourceDirectory + "pseudo-fullscreen/camera_shutter_black.png";
       // ID Scan Customization
+      currentCustomization.idScanCustomization.showSelectionScreenDocumentImage = true;
+      currentCustomization.idScanCustomization.selectionScreenDocumentImage = themeResourceDirectory + "pseudo-fullscreen/document_offblack.png";
       currentCustomization.idScanCustomization.showSelectionScreenBrandingImage = false;
       currentCustomization.idScanCustomization.selectionScreenBrandingImage = "";
       currentCustomization.idScanCustomization.selectionScreenBackgroundColors = backgroundColor;
@@ -100,6 +104,7 @@ export var ThemeHelpers = (function() {
       currentCustomization.idScanCustomization.selectionScreenForegroundColor = primaryColor;
       currentCustomization.idScanCustomization.headerFont = font;
       currentCustomization.idScanCustomization.subtextFont = font;
+      currentCustomization.idScanCustomization.buttonFont = font;
       currentCustomization.idScanCustomization.buttonTextNormalColor = backgroundColor;
       currentCustomization.idScanCustomization.buttonBackgroundNormalColor = primaryColor;
       currentCustomization.idScanCustomization.buttonTextHighlightColor = backgroundColor;
@@ -121,6 +126,37 @@ export var ThemeHelpers = (function() {
       currentCustomization.idScanCustomization.captureFrameStrokeColor = primaryColor;
       currentCustomization.idScanCustomization.captureFrameStrokeWidth = "2px";
       currentCustomization.idScanCustomization.captureFrameCornerRadius = "12px";
+      // OCR Confirmation Screen Customization
+      currentCustomization.ocrConfirmationCustomization.backgroundColors = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineColor = secondaryColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineWidth = "2px";
+      currentCustomization.ocrConfirmationCustomization.mainHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldValueFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderFont = font;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderTextColor = secondaryColor;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldValueTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderTextColor = "rgba(59, 195, 113, 0.4)";
+      currentCustomization.ocrConfirmationCustomization.inputFieldBackgroundColor = "transparent";
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderColor = secondaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderWidth = "2px";
+      currentCustomization.ocrConfirmationCustomization.inputFieldCornerRadius = "0px";
+      currentCustomization.ocrConfirmationCustomization.showInputFieldBottomBorderOnly = true;
+      currentCustomization.ocrConfirmationCustomization.buttonFont = font;
+      currentCustomization.ocrConfirmationCustomization.buttonTextNormalColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundNormalColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonTextHighlightColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundHighlightColor = "rgb(86, 86, 86)";
+      currentCustomization.ocrConfirmationCustomization.buttonTextDisabledColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundDisabledColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBorderColor = "transparent";
+      currentCustomization.ocrConfirmationCustomization.buttonBorderWidth = "0px";
+      currentCustomization.ocrConfirmationCustomization.buttonCornerRadius = "20px";
       // Result Screen Customization
       currentCustomization.resultScreenCustomization.backgroundColors = backgroundColor;
       currentCustomization.resultScreenCustomization.foregroundColor = primaryColor;
@@ -222,7 +258,7 @@ export var ThemeHelpers = (function() {
       currentCustomization.guidanceCustomization.buttonBorderColor = "transparent";
       currentCustomization.guidanceCustomization.buttonBorderWidth = "0px";
       currentCustomization.guidanceCustomization.buttonCornerRadius = "20px";
-      currentCustomization.guidanceCustomization.readyScreenOvalFillColor = "rgba(9, 181, 163, 0.2)";
+      currentCustomization.guidanceCustomization.readyScreenOvalFillColor = "transparent";
       currentCustomization.guidanceCustomization.readyScreenTextBackgroundColor = backgroundColor;
       currentCustomization.guidanceCustomization.readyScreenTextBackgroundCornerRadius = "5px";
       currentCustomization.guidanceCustomization.retryScreenImageBorderColor = primaryColor;
@@ -234,6 +270,8 @@ export var ThemeHelpers = (function() {
       currentCustomization.guidanceCustomization.enableRetryScreenSlideshowShuffle = true;
       currentCustomization.guidanceCustomization.cameraPermissionsScreenImage = themeResourceDirectory + "well-rounded/camera_green.png";
       // ID Scan Customization
+      currentCustomization.idScanCustomization.showSelectionScreenDocumentImage = true;
+      currentCustomization.idScanCustomization.selectionScreenDocumentImage = themeResourceDirectory + "well-rounded/document_green.png";
       currentCustomization.idScanCustomization.showSelectionScreenBrandingImage = false;
       currentCustomization.idScanCustomization.selectionScreenBrandingImage = "";
       currentCustomization.idScanCustomization.selectionScreenBackgroundColors = backgroundColor;
@@ -265,6 +303,37 @@ export var ThemeHelpers = (function() {
       currentCustomization.idScanCustomization.captureFrameStrokeColor = primaryColor;
       currentCustomization.idScanCustomization.captureFrameStrokeWidth = "2px";
       currentCustomization.idScanCustomization.captureFrameCornerRadius = "12px";
+      // OCR Confirmation Screen Customization
+      currentCustomization.ocrConfirmationCustomization.backgroundColors = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineWidth = "2px";
+      currentCustomization.ocrConfirmationCustomization.mainHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldValueFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderFont = font;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldValueTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderTextColor = "rgba(9, 181, 163, 0.4)";
+      currentCustomization.ocrConfirmationCustomization.inputFieldBackgroundColor = "transparent";
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderWidth = "1px";
+      currentCustomization.ocrConfirmationCustomization.inputFieldCornerRadius = "15px";
+      currentCustomization.ocrConfirmationCustomization.showInputFieldBottomBorderOnly = false;
+      currentCustomization.ocrConfirmationCustomization.buttonFont = font;
+      currentCustomization.ocrConfirmationCustomization.buttonTextNormalColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundNormalColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonTextHighlightColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundHighlightColor = "rgb(49, 221, 203)";
+      currentCustomization.ocrConfirmationCustomization.buttonTextDisabledColor = "rgb(215, 215, 215)";
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundDisabledColor = "rgb(0, 141, 123)";
+      currentCustomization.ocrConfirmationCustomization.buttonBorderColor = "transparent";
+      currentCustomization.ocrConfirmationCustomization.buttonBorderWidth = "0px";
+      currentCustomization.ocrConfirmationCustomization.buttonCornerRadius = "20px";
       // Result Screen Customization
       currentCustomization.resultScreenCustomization.backgroundColors = backgroundColor;
       currentCustomization.resultScreenCustomization.foregroundColor = primaryColor;
@@ -335,7 +404,7 @@ export var ThemeHelpers = (function() {
       currentCustomization.guidanceCustomization.buttonBorderColor = "transparent";
       currentCustomization.guidanceCustomization.buttonBorderWidth = "0px";
       currentCustomization.guidanceCustomization.buttonCornerRadius = "5px";
-      currentCustomization.guidanceCustomization.readyScreenOvalFillColor = "rgba(247, 150, 52, 0.2)";
+      currentCustomization.guidanceCustomization.readyScreenOvalFillColor = "transparent";
       currentCustomization.guidanceCustomization.readyScreenTextBackgroundColor = backgroundColor;
       currentCustomization.guidanceCustomization.readyScreenTextBackgroundCornerRadius = "5px";
       currentCustomization.guidanceCustomization.retryScreenImageBorderColor = primaryColor;
@@ -347,6 +416,8 @@ export var ThemeHelpers = (function() {
       currentCustomization.guidanceCustomization.enableRetryScreenSlideshowShuffle = true;
       currentCustomization.guidanceCustomization.cameraPermissionsScreenImage = themeResourceDirectory + "bitcoin-exchange/camera_orange.png";
       // ID Scan Customization
+      currentCustomization.idScanCustomization.showSelectionScreenDocumentImage = true;
+      currentCustomization.idScanCustomization.selectionScreenDocumentImage = themeResourceDirectory + "bitcoin-exchange/document_orange.png";
       currentCustomization.idScanCustomization.showSelectionScreenBrandingImage = false;
       currentCustomization.idScanCustomization.selectionScreenBrandingImage = "";
       currentCustomization.idScanCustomization.selectionScreenBackgroundColors = backgroundColor;
@@ -378,6 +449,37 @@ export var ThemeHelpers = (function() {
       currentCustomization.idScanCustomization.captureFrameStrokeColor = primaryColor;
       currentCustomization.idScanCustomization.captureFrameStrokeWidth = "2px";
       currentCustomization.idScanCustomization.captureFrameCornerRadius = "12px";
+      // OCR Confirmation Screen Customization
+      currentCustomization.ocrConfirmationCustomization.backgroundColors = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineColor = secondaryColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineWidth = "1px";
+      currentCustomization.ocrConfirmationCustomization.mainHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldValueFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderFont = font;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldValueTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderTextColor = "rgba(247, 150, 52, 0.4)";
+      currentCustomization.ocrConfirmationCustomization.inputFieldBackgroundColor = "transparent";
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderWidth = "1px";
+      currentCustomization.ocrConfirmationCustomization.inputFieldCornerRadius = "5px";
+      currentCustomization.ocrConfirmationCustomization.showInputFieldBottomBorderOnly = false;
+      currentCustomization.ocrConfirmationCustomization.buttonFont = font;
+      currentCustomization.ocrConfirmationCustomization.buttonTextNormalColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundNormalColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonTextHighlightColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundHighlightColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonTextDisabledColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundDisabledColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBorderColor = "transparent";
+      currentCustomization.ocrConfirmationCustomization.buttonBorderWidth = "0px";
+      currentCustomization.ocrConfirmationCustomization.buttonCornerRadius = "5px";
       // Result Screen Customization
       currentCustomization.resultScreenCustomization.backgroundColors = backgroundColor;
       currentCustomization.resultScreenCustomization.foregroundColor = primaryColor;
@@ -477,7 +579,7 @@ export var ThemeHelpers = (function() {
       currentCustomization.guidanceCustomization.buttonBorderColor = primaryColor;
       currentCustomization.guidanceCustomization.buttonBorderWidth = "2px";
       currentCustomization.guidanceCustomization.buttonCornerRadius = "8px";
-      currentCustomization.guidanceCustomization.readyScreenOvalFillColor = "rgba(237, 28, 36, 0.2)";
+      currentCustomization.guidanceCustomization.readyScreenOvalFillColor = "transparent";
       currentCustomization.guidanceCustomization.readyScreenTextBackgroundColor = backgroundColor;
       currentCustomization.guidanceCustomization.readyScreenTextBackgroundCornerRadius = "3px";
       currentCustomization.guidanceCustomization.retryScreenImageBorderColor = primaryColor;
@@ -489,6 +591,8 @@ export var ThemeHelpers = (function() {
       currentCustomization.guidanceCustomization.enableRetryScreenSlideshowShuffle = true;
       currentCustomization.guidanceCustomization.cameraPermissionsScreenImage = themeResourceDirectory + "ekyc/camera_red.png";
       // ID Scan Customization
+      currentCustomization.idScanCustomization.showSelectionScreenDocumentImage = false;
+      currentCustomization.idScanCustomization.selectionScreenDocumentImage = "";
       currentCustomization.idScanCustomization.showSelectionScreenBrandingImage = false;
       currentCustomization.idScanCustomization.selectionScreenBrandingImage = "";
       currentCustomization.idScanCustomization.selectionScreenBackgroundColors = backgroundColor;
@@ -520,6 +624,37 @@ export var ThemeHelpers = (function() {
       currentCustomization.idScanCustomization.captureFrameStrokeColor = primaryColor;
       currentCustomization.idScanCustomization.captureFrameStrokeWidth = "2px";
       currentCustomization.idScanCustomization.captureFrameCornerRadius = "12px";
+      // OCR Confirmation Screen Customization
+      currentCustomization.ocrConfirmationCustomization.backgroundColors = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineColor = secondaryColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineWidth = "2px";
+      currentCustomization.ocrConfirmationCustomization.mainHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldValueFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderFont = font;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderTextColor = secondaryColor;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelTextColor = secondaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldValueTextColor = secondaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldTextColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderTextColor = "rgba(255, 255, 255, 0.4)";
+      currentCustomization.ocrConfirmationCustomization.inputFieldBackgroundColor = secondaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderWidth = "0px";
+      currentCustomization.ocrConfirmationCustomization.inputFieldCornerRadius = "8px";
+      currentCustomization.ocrConfirmationCustomization.showInputFieldBottomBorderOnly = false;
+      currentCustomization.ocrConfirmationCustomization.buttonFont = font;
+      currentCustomization.ocrConfirmationCustomization.buttonTextNormalColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundNormalColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonTextHighlightColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundHighlightColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonTextDisabledColor = "rgba(237, 28, 36, 0.3)";
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundDisabledColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBorderColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBorderWidth = "2px";
+      currentCustomization.ocrConfirmationCustomization.buttonCornerRadius = "8px";
       // Result Screen Customization
       currentCustomization.resultScreenCustomization.backgroundColors = backgroundColor;
       currentCustomization.resultScreenCustomization.foregroundColor = secondaryColor;
@@ -589,7 +724,7 @@ export var ThemeHelpers = (function() {
       currentCustomization.guidanceCustomization.buttonBorderColor = backgroundColor;
       currentCustomization.guidanceCustomization.buttonBorderWidth = "2px";
       currentCustomization.guidanceCustomization.buttonCornerRadius = "2px";
-      currentCustomization.guidanceCustomization.readyScreenOvalFillColor = "rgba(255, 255, 255, 0.2)";
+      currentCustomization.guidanceCustomization.readyScreenOvalFillColor = "transparent";
       currentCustomization.guidanceCustomization.readyScreenTextBackgroundColor = backgroundColor;
       currentCustomization.guidanceCustomization.readyScreenTextBackgroundCornerRadius = "2px";
       currentCustomization.guidanceCustomization.retryScreenImageBorderColor = primaryColor;
@@ -601,6 +736,8 @@ export var ThemeHelpers = (function() {
       currentCustomization.guidanceCustomization.enableRetryScreenSlideshowShuffle = false;
       currentCustomization.guidanceCustomization.cameraPermissionsScreenImage = themeResourceDirectory + "sample-bank/camera_white_navy.png";
       // ID Scan Customization
+      currentCustomization.idScanCustomization.showSelectionScreenDocumentImage = false;
+      currentCustomization.idScanCustomization.selectionScreenDocumentImage = "";
       currentCustomization.idScanCustomization.showSelectionScreenBrandingImage = false;
       currentCustomization.idScanCustomization.selectionScreenBrandingImage = "";
       currentCustomization.idScanCustomization.selectionScreenBackgroundColors = backgroundColor;
@@ -632,6 +769,37 @@ export var ThemeHelpers = (function() {
       currentCustomization.idScanCustomization.captureFrameStrokeColor = primaryColor;
       currentCustomization.idScanCustomization.captureFrameStrokeWidth = "2px";
       currentCustomization.idScanCustomization.captureFrameCornerRadius = "12px";
+      // OCR Confirmation Screen Customization
+      currentCustomization.ocrConfirmationCustomization.backgroundColors = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderDividerLineWidth = "2px";
+      currentCustomization.ocrConfirmationCustomization.mainHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelFont = font;
+      currentCustomization.ocrConfirmationCustomization.fieldValueFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldFont = font;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderFont = font;
+      currentCustomization.ocrConfirmationCustomization.mainHeaderTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.sectionHeaderTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldLabelTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.fieldValueTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldTextColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldPlaceholderTextColor = "rgba(29, 23, 79, 0.4)";
+      currentCustomization.ocrConfirmationCustomization.inputFieldBackgroundColor = "transparent";
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.inputFieldBorderWidth = "2px";
+      currentCustomization.ocrConfirmationCustomization.inputFieldCornerRadius = "0px";
+      currentCustomization.ocrConfirmationCustomization.showInputFieldBottomBorderOnly = true;
+      currentCustomization.ocrConfirmationCustomization.buttonFont = font;
+      currentCustomization.ocrConfirmationCustomization.buttonTextNormalColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundNormalColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonTextHighlightColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundHighlightColor = "rgba(255, 255, 255, 0.8)";
+      currentCustomization.ocrConfirmationCustomization.buttonTextDisabledColor = "rgba(29, 23, 79, 0.3)";
+      currentCustomization.ocrConfirmationCustomization.buttonBackgroundDisabledColor = primaryColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBorderColor = backgroundColor;
+      currentCustomization.ocrConfirmationCustomization.buttonBorderWidth = "2px";
+      currentCustomization.ocrConfirmationCustomization.buttonCornerRadius = "2px";
       // Result Screen Customization
       currentCustomization.resultScreenCustomization.backgroundColors = backgroundColor;
       currentCustomization.resultScreenCustomization.foregroundColor = primaryColor;
@@ -675,7 +843,7 @@ export var ThemeHelpers = (function() {
   }
 
   function getLowLightCustomizationForTheme(theme: string): FaceTecCustomization|null {
-    var currentLowLightCustomization: FaceTecCustomization|null = getCustomizationForTheme(theme);
+    var currentLowLightCustomization: FaceTecCustomization = getCustomizationForTheme(theme);
 
     const retryScreenSlideshowImages: string[] = [themeResourceDirectory + "FaceTec_ideal_1.png", themeResourceDirectory + "FaceTec_ideal_2.png", themeResourceDirectory + "FaceTec_ideal_3.png", themeResourceDirectory + "FaceTec_ideal_4.png", themeResourceDirectory + "FaceTec_ideal_5.png"];
 
@@ -695,12 +863,13 @@ export var ThemeHelpers = (function() {
       currentLowLightCustomization.guidanceCustomization.buttonTextDisabledColor = "white";
       currentLowLightCustomization.guidanceCustomization.buttonBackgroundDisabledColor = primaryColor;
       currentLowLightCustomization.guidanceCustomization.buttonBorderColor = "transparent";
-      currentLowLightCustomization.guidanceCustomization.readyScreenOvalFillColor = "rgba(247, 150, 52, 0.2)";
+      currentLowLightCustomization.guidanceCustomization.readyScreenOvalFillColor = "transparent";
       currentLowLightCustomization.guidanceCustomization.readyScreenTextBackgroundColor = "white";
       currentLowLightCustomization.guidanceCustomization.retryScreenImageBorderColor = primaryColor;
       currentLowLightCustomization.guidanceCustomization.retryScreenOvalStrokeColor = primaryColor;
       currentLowLightCustomization.guidanceCustomization.retryScreenSlideshowImages = [];
       // ID Scan Customization
+      currentLowLightCustomization.idScanCustomization.selectionScreenDocumentImage = themeResourceDirectory + "bitcoin-exchange/document_grey.png";
       currentLowLightCustomization.idScanCustomization.selectionScreenBrandingImage = "";
       currentLowLightCustomization.idScanCustomization.captureScreenForegroundColor = primaryColor;
       currentLowLightCustomization.idScanCustomization.reviewScreenForegroundColor = primaryColor;
@@ -752,9 +921,6 @@ export var ThemeHelpers = (function() {
       // Retry Screen Subtext
       currentLowLightCustomization.guidanceCustomization.retryScreenSubtextTextColor = backgroundColor;
     }
-    else if(theme === "eKYC") {
-      currentLowLightCustomization = null;
-    }
     else if(theme === "Sample Bank") {
       const primaryColor = "white";
       const backgroundColor = "rgb(29, 23, 79)"; // navy
@@ -770,12 +936,13 @@ export var ThemeHelpers = (function() {
       currentLowLightCustomization.guidanceCustomization.buttonTextDisabledColor = "rgba(255, 255, 255, 0.3)";
       currentLowLightCustomization.guidanceCustomization.buttonBackgroundDisabledColor = backgroundColor;
       currentLowLightCustomization.guidanceCustomization.buttonBorderColor = backgroundColor;
-      currentLowLightCustomization.guidanceCustomization.readyScreenOvalFillColor = "rgba(255, 255, 255, 0.2)";
+      currentLowLightCustomization.guidanceCustomization.readyScreenOvalFillColor = "transparent";
       currentLowLightCustomization.guidanceCustomization.readyScreenTextBackgroundColor = primaryColor;
       currentLowLightCustomization.guidanceCustomization.retryScreenImageBorderColor = backgroundColor;
       currentLowLightCustomization.guidanceCustomization.retryScreenOvalStrokeColor = primaryColor;
       currentLowLightCustomization.guidanceCustomization.retryScreenSlideshowImages = retryScreenSlideshowImages;
       // ID Scan Customization
+      currentLowLightCustomization.idScanCustomization.selectionScreenDocumentImage = "";
       currentLowLightCustomization.idScanCustomization.selectionScreenBrandingImage = "";
       currentLowLightCustomization.idScanCustomization.captureScreenForegroundColor = backgroundColor;
       currentLowLightCustomization.idScanCustomization.reviewScreenForegroundColor = backgroundColor;
@@ -792,6 +959,23 @@ export var ThemeHelpers = (function() {
       currentLowLightCustomization.idScanCustomization.reviewScreenTextBackgroundColor = primaryColor;
       currentLowLightCustomization.idScanCustomization.reviewScreenTextBackgroundBorderColor = backgroundColor;
       currentLowLightCustomization.idScanCustomization.captureFrameStrokeColor = primaryColor;
+      // OCR Confirmation Screen Customization
+      currentLowLightCustomization.ocrConfirmationCustomization.mainHeaderDividerLineColor = backgroundColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.mainHeaderTextColor = backgroundColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.sectionHeaderTextColor = backgroundColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.fieldLabelTextColor = backgroundColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.fieldValueTextColor = backgroundColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.inputFieldTextColor = backgroundColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.inputFieldPlaceholderTextColor = "rgba(29, 23, 79, 0.4)";
+      currentLowLightCustomization.ocrConfirmationCustomization.inputFieldBackgroundColor = "transparent";
+      currentLowLightCustomization.ocrConfirmationCustomization.inputFieldBorderColor = backgroundColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.buttonTextNormalColor = primaryColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.buttonBackgroundNormalColor = backgroundColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.buttonTextHighlightColor = primaryColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.buttonBackgroundHighlightColor = "rgba(29, 23, 79, 0.8)";
+      currentLowLightCustomization.ocrConfirmationCustomization.buttonTextDisabledColor = "rgba(255, 255, 255, 0.3)";
+      currentLowLightCustomization.ocrConfirmationCustomization.buttonBackgroundDisabledColor = backgroundColor;
+      currentLowLightCustomization.ocrConfirmationCustomization.buttonBorderColor = backgroundColor;
       // Result Screen Customization
       currentLowLightCustomization.resultScreenCustomization.foregroundColor = backgroundColor;
       currentLowLightCustomization.resultScreenCustomization.activityIndicatorColor = backgroundColor;
@@ -817,19 +1001,25 @@ export var ThemeHelpers = (function() {
       // Cancel Button Customization
       currentLowLightCustomization.cancelButtonCustomization.customImage = themeResourceDirectory + "sample-bank/cancel_navy.png";
     }
-    else {
-      currentLowLightCustomization = null;
-    }
 
     return currentLowLightCustomization;
   }
 
   function getDynamicDimmingCustomizationForTheme(theme: string): FaceTecCustomization|null {
-    var currentDynamicDimmingCustomization: FaceTecCustomization|null = getCustomizationForTheme(theme);
+    var currentDynamicDimmingCustomization: FaceTecCustomization = getCustomizationForTheme(theme);
 
     const retryScreenSlideshowImages: string[] = [themeResourceDirectory + "FaceTec_ideal_1.png", themeResourceDirectory + "FaceTec_ideal_2.png", themeResourceDirectory + "FaceTec_ideal_3.png", themeResourceDirectory + "FaceTec_ideal_4.png", themeResourceDirectory + "FaceTec_ideal_5.png"];
 
-    if(theme === "Pseudo-Fullscreen") {
+    if(theme === "FaceTec Theme") {
+      // OCR Confirmation Screen Customization
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.sectionHeaderTextColor = "white";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.fieldLabelTextColor = "white";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.fieldValueTextColor = "white";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldTextColor = "white";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldPlaceholderTextColor = "rgba(0, 0, 0, 0.4)";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldBorderColor = "white";
+    }
+    else if(theme === "Pseudo-Fullscreen") {
       const primaryColor = "rgb(238, 246, 248)"; // white
       const secondaryColor = "rgb(59, 195, 113)"; // green
       const backgroundColor = "black";
@@ -863,10 +1053,11 @@ export var ThemeHelpers = (function() {
       currentDynamicDimmingCustomization.guidanceCustomization.readyScreenOvalFillColor = "transparent";
       currentDynamicDimmingCustomization.guidanceCustomization.readyScreenTextBackgroundColor = backgroundColor;
       currentDynamicDimmingCustomization.guidanceCustomization.retryScreenImageBorderColor = primaryColor;
-      currentDynamicDimmingCustomization.guidanceCustomization.retryScreenOvalStrokeColor = backgroundColor;
+      currentDynamicDimmingCustomization.guidanceCustomization.retryScreenOvalStrokeColor = primaryColor;
       currentDynamicDimmingCustomization.guidanceCustomization.retryScreenSlideshowImages = retryScreenSlideshowImages;
       currentDynamicDimmingCustomization.guidanceCustomization.cameraPermissionsScreenImage = themeResourceDirectory + "pseudo-fullscreen/camera_shutter_black.png";
       // ID Scan Customization
+      currentDynamicDimmingCustomization.idScanCustomization.selectionScreenDocumentImage = themeResourceDirectory + "pseudo-fullscreen/document_offwhite.png";
       currentDynamicDimmingCustomization.idScanCustomization.selectionScreenBrandingImage = "";
       currentDynamicDimmingCustomization.idScanCustomization.captureScreenForegroundColor = primaryColor;
       currentDynamicDimmingCustomization.idScanCustomization.reviewScreenForegroundColor = primaryColor;
@@ -883,6 +1074,23 @@ export var ThemeHelpers = (function() {
       currentDynamicDimmingCustomization.idScanCustomization.reviewScreenTextBackgroundColor = backgroundColor;
       currentDynamicDimmingCustomization.idScanCustomization.reviewScreenTextBackgroundBorderColor = primaryColor;
       currentDynamicDimmingCustomization.idScanCustomization.captureFrameStrokeColor = primaryColor;
+      // OCR Confirmation Screen Customization
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.mainHeaderDividerLineColor = secondaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.mainHeaderTextColor = secondaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.sectionHeaderTextColor = primaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.fieldLabelTextColor = primaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.fieldValueTextColor = primaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldTextColor = primaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldPlaceholderTextColor = "rgba(59, 195, 113, 0.4)";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldBackgroundColor = "transparent";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldBorderColor = secondaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonTextNormalColor = backgroundColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonBackgroundNormalColor = primaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonTextHighlightColor = backgroundColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonBackgroundHighlightColor = "white";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonTextDisabledColor = backgroundColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonBackgroundDisabledColor = "rgba(238, 246, 248, 0.3)";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonBorderColor = "transparent";
       // Result Screen Customization
       currentDynamicDimmingCustomization.resultScreenCustomization.foregroundColor = primaryColor;
       currentDynamicDimmingCustomization.resultScreenCustomization.activityIndicatorColor = primaryColor;
@@ -922,6 +1130,10 @@ export var ThemeHelpers = (function() {
       // Retry Screen Subtext
       currentDynamicDimmingCustomization.guidanceCustomization.retryScreenSubtextTextColor = primaryColor;
     }
+    else if(theme === "Bitcoin Exchange") {
+      // Overlay Customization
+      currentDynamicDimmingCustomization.overlayCustomization.brandingImage = themeResourceDirectory + "bitcoin-exchange/bitcoin_exchange_logo_white.png";
+    }
     else if(theme === "eKYC") {
       const primaryColor = "rgb(237, 28, 36)"; // red
       const secondaryColor = "white";
@@ -943,7 +1155,7 @@ export var ThemeHelpers = (function() {
       unsuccessResultAnimationSVG.innerHTML = "<line class='crossPath1__back' x1='18' y1='18' x2='34' y2='34'></line><line class='crossPath2__back' x1='34' y1='18' x2='18' y2='34'></line><line class='crossPath1__front' x1='18' y1='18' x2='34' y2='34'></line><line class='crossPath2__front' x1='34' y1='18' x2='18' y2='34'></line>";
 
       // Overlay Customization
-      currentDynamicDimmingCustomization.overlayCustomization.brandingImage = themeResourceDirectory + "ekyc/ekyc_logo.png";
+      currentDynamicDimmingCustomization.overlayCustomization.brandingImage = themeResourceDirectory + "ekyc/ekyc_logo_white.png";
       // Guidance Customization
       currentDynamicDimmingCustomization.guidanceCustomization.foregroundColor = secondaryColor;
       currentDynamicDimmingCustomization.guidanceCustomization.buttonTextNormalColor = primaryColor;
@@ -953,12 +1165,13 @@ export var ThemeHelpers = (function() {
       currentDynamicDimmingCustomization.guidanceCustomization.buttonTextDisabledColor = "rgba(237, 28, 36, 0.3)";
       currentDynamicDimmingCustomization.guidanceCustomization.buttonBackgroundDisabledColor = backgroundColor;
       currentDynamicDimmingCustomization.guidanceCustomization.buttonBorderColor = primaryColor;
-      currentDynamicDimmingCustomization.guidanceCustomization.readyScreenOvalFillColor = "rgba(237, 28, 36, 0.2)";
+      currentDynamicDimmingCustomization.guidanceCustomization.readyScreenOvalFillColor = "transparent";
       currentDynamicDimmingCustomization.guidanceCustomization.readyScreenTextBackgroundColor = backgroundColor;
       currentDynamicDimmingCustomization.guidanceCustomization.retryScreenImageBorderColor = primaryColor;
       currentDynamicDimmingCustomization.guidanceCustomization.retryScreenOvalStrokeColor = primaryColor;
       currentDynamicDimmingCustomization.guidanceCustomization.retryScreenSlideshowImages = retryScreenSlideshowImages;
       // ID Scan Customization
+      currentDynamicDimmingCustomization.idScanCustomization.selectionScreenDocumentImage = "";
       currentDynamicDimmingCustomization.idScanCustomization.selectionScreenBrandingImage = "";
       currentDynamicDimmingCustomization.idScanCustomization.captureScreenForegroundColor = backgroundColor;
       currentDynamicDimmingCustomization.idScanCustomization.reviewScreenForegroundColor = backgroundColor;
@@ -975,6 +1188,23 @@ export var ThemeHelpers = (function() {
       currentDynamicDimmingCustomization.idScanCustomization.reviewScreenTextBackgroundColor = primaryColor;
       currentDynamicDimmingCustomization.idScanCustomization.reviewScreenTextBackgroundBorderColor = primaryColor;
       currentDynamicDimmingCustomization.idScanCustomization.captureFrameStrokeColor = primaryColor;
+      // OCR Confirmation Screen Customization
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.mainHeaderDividerLineColor = secondaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.mainHeaderTextColor = secondaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.sectionHeaderTextColor = primaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.fieldLabelTextColor = secondaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.fieldValueTextColor = secondaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldTextColor = backgroundColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldPlaceholderTextColor = "rgba(0, 0, 0, 0.4)";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldBackgroundColor = secondaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.inputFieldBorderColor = primaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonTextNormalColor = primaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonBackgroundNormalColor = backgroundColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonTextHighlightColor = backgroundColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonBackgroundHighlightColor = primaryColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonTextDisabledColor = "rgba(237, 28, 36, 0.3)";
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonBackgroundDisabledColor = backgroundColor;
+      currentDynamicDimmingCustomization.ocrConfirmationCustomization.buttonBorderColor = primaryColor;
       // Result Screen Customization
       currentDynamicDimmingCustomization.resultScreenCustomization.foregroundColor = secondaryColor;
       currentDynamicDimmingCustomization.resultScreenCustomization.activityIndicatorColor = primaryColor;
@@ -1002,21 +1232,12 @@ export var ThemeHelpers = (function() {
       // Cancel Button Customization
       currentDynamicDimmingCustomization.cancelButtonCustomization.customImage = themeResourceDirectory + "ekyc/cancel_box_red.png";
     }
-    else {
-      currentDynamicDimmingCustomization = null;
-    }
 
     return currentDynamicDimmingCustomization;
   }
 
   function showNewTheme(){
     var themes: string[] = [""];
-    if(currentTheme === "") {
-      currentTheme = "FaceTec Theme";
-      if(Config.wasSDKConfiguredWithConfigWizard === true) {
-        currentTheme = "Config Wizard Theme";
-      }
-    }
     if(Config.wasSDKConfiguredWithConfigWizard === true) {
       themes = ["Config Wizard Theme", "FaceTec Theme", "Pseudo-Fullscreen", "Well-Rounded", "Bitcoin Exchange", "eKYC", "Sample Bank"];
     }
@@ -1075,9 +1296,16 @@ export var ThemeHelpers = (function() {
     (document.getElementById("theme-transition-overlay-img") as HTMLImageElement).src = transitionViewImage;
     (document.getElementById("theme-transition-overlay") as HTMLElement).className = transitionViewClass;
     (document.getElementById("loading-session-token-text") as HTMLElement).style.color = transitionViewTextColor;
+
+  }
+
+  function getCurrentTheme() {
+    currentTheme = Config.wasSDKConfiguredWithConfigWizard ? "Config Wizard Theme" : "FaceTec Theme";
+    return currentTheme;
   }
 
   return {
+    getCurrentTheme,
     themeResourceDirectory,
     setAppTheme(theme:string) {
       setAppTheme(theme);

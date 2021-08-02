@@ -2,10 +2,11 @@ import { Config } from "../../../../Config";
 import { FaceTecSDK } from "../../../../core-sdk/FaceTecSDK.js/FaceTecSDK";
 import { SampleAppUIFunctions } from "./SampleAppUIFunctions";
 import { FaceTecIDScanResult, FaceTecSessionResult } from "../../../../core-sdk/FaceTecSDK.js/FaceTecPublicApi";
+import { SoundFileUtilities } from "./SoundFileUtilities";
 
 export var SampleAppUtilities = (function() {
 
-  var vocalGuidanceSoundFilesDirectory = "../../../../sample-app-resources/Vocal_Guidance_Audio_Files/";
+  var vocalGuidanceSoundFilesDirectory = "../../sample-app-resources/Vocal_Guidance_Audio_Files/";
 
   enum VocalGuidanceMode {
     MINIMAL,
@@ -17,6 +18,12 @@ export var SampleAppUtilities = (function() {
   var vocalGuidanceOffPlayer = new Audio(vocalGuidanceSoundFilesDirectory + "vocal_guidance_off.mp3");
   vocalGuidanceOnPlayer.volume = 0.4;
   vocalGuidanceOffPlayer.volume = 0.4;
+  vocalGuidanceOffPlayer.onended = function() {
+    enableVocalGuidanceButtons();
+  };
+  vocalGuidanceOnPlayer.onended = function() {
+    enableVocalGuidanceButtons();
+  };
 
   var vocalGuidanceMode: VocalGuidanceMode = VocalGuidanceMode.MINIMAL;
 
@@ -38,11 +45,7 @@ export var SampleAppUtilities = (function() {
     }
     SampleAppUIFunctions("#controls").fadeIn(800, () => {
       enableControlButtons();
-
-      document.querySelectorAll(".vocal-icon").forEach(function(icon) {
-        icon.removeAttribute("disabled");
-      });
-
+      enableVocalGuidanceButtons();
       if(callback) {
         callback();
       }
@@ -57,9 +60,7 @@ export var SampleAppUtilities = (function() {
       SampleAppUIFunctions("#custom-logo-container").fadeOut(800);
       SampleAppUIFunctions("#vocal-icon-container").fadeOut(800);
 
-      document.querySelectorAll(".vocal-icon").forEach(function(icon) {
-        icon.setAttribute("disabled", "true");
-      });
+      disableVocalGuidanceButtons();
     }
     SampleAppUIFunctions("#controls").fadeOut(800);
     SampleAppUIFunctions(".wrapping-box-container").fadeOut(800);
@@ -103,14 +104,14 @@ export var SampleAppUtilities = (function() {
   function generateUUId() {
     // @ts-ignore
     return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    {return (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16);}
     );
   }
 
   function formatUIForDevice() {
     if(isLikelyMobileDevice()) {
       // Adjust button sizing
-      document.querySelectorAll("#controls > button").forEach(function(element) {
+      document.querySelectorAll("button").forEach(function(element) {
         if(element.className === "big-button") {
           (element as HTMLElement).style.height = "40px";
           (element as HTMLElement).style.fontSize = "18px";
@@ -180,13 +181,24 @@ export var SampleAppUtilities = (function() {
     }
   }
 
-  function setVocalGuidanceMode() {
+  function disableVocalGuidanceButtons() {
+    document.querySelectorAll(".vocal-icon").forEach( (button) => {
+      (<HTMLButtonElement>button).setAttribute("disabled", "true");
+    });
+  }
 
+  function enableVocalGuidanceButtons() {
+    document.querySelectorAll(".vocal-icon").forEach( (button) => {
+      (<HTMLButtonElement>button).removeAttribute("disabled");
+    });
+  }
+
+  function setVocalGuidanceMode() {
+    disableVocalGuidanceButtons();
     if(!vocalGuidanceOnPlayer.paused || !vocalGuidanceOffPlayer.paused) {
       return;
     }
-
-    switch(vocalGuidanceMode) {
+    switch (vocalGuidanceMode) {
       case VocalGuidanceMode.OFF:
         vocalGuidanceMode = VocalGuidanceMode.MINIMAL;
 
@@ -195,6 +207,7 @@ export var SampleAppUtilities = (function() {
         (document.getElementById("vocal-guidance-icon-off") as HTMLElement).style.display = "none";
 
         vocalGuidanceOnPlayer.play();
+
         Config.currentCustomization.vocalGuidanceCustomization.mode = VocalGuidanceMode.MINIMAL;
         break;
 
@@ -224,13 +237,8 @@ export var SampleAppUtilities = (function() {
   }
 
   function setVocalGuidanceSoundFiles() {
-    Config.currentCustomization.vocalGuidanceCustomization.pleaseFrameYourFaceInTheOvalSoundFile = vocalGuidanceSoundFilesDirectory + "please_frame_your_face_sound_file.mp3";
-    Config.currentCustomization.vocalGuidanceCustomization.pleaseMoveCloserSoundFile = vocalGuidanceSoundFilesDirectory + "please_move_closer_sound_file.mp3";
-    Config.currentCustomization.vocalGuidanceCustomization.pleaseRetrySoundFile = vocalGuidanceSoundFilesDirectory + "please_retry_sound_file.mp3";
-    Config.currentCustomization.vocalGuidanceCustomization.uploadingSoundFile = vocalGuidanceSoundFilesDirectory + "uploading_sound_file.mp3";
-    Config.currentCustomization.vocalGuidanceCustomization.facescanSuccessfulSoundFile = vocalGuidanceSoundFilesDirectory + "facescan_successful_sound_file.mp3";
-    Config.currentCustomization.vocalGuidanceCustomization.pleasePressTheButtonToStartSoundFile = vocalGuidanceSoundFilesDirectory + "please_press_button_sound_file.mp3";
-
+    var soundFileUtilities = new SoundFileUtilities();
+    Config.currentCustomization = soundFileUtilities.setVocalGuidanceSoundFiles(Config.currentCustomization);
     FaceTecSDK.setCustomization(Config.currentCustomization);
   }
 
@@ -335,7 +343,6 @@ export var SampleAppUtilities = (function() {
     enableControlButtons,
     generateUUId,
     formatUIForDevice,
-    handleErrorGettingServerSessionToken,
     setVocalGuidanceSoundFiles,
     setVocalGuidanceMode,
     showMainUI,
@@ -343,6 +350,7 @@ export var SampleAppUtilities = (function() {
     showLoadingSessionToken,
     isLikelyMobileDevice,
     UI: SampleAppUIFunctions,
-    showAuditTrailImages
+    showAuditTrailImages,
+    handleErrorGettingServerSessionToken
   };
 })();

@@ -38,6 +38,10 @@ module.exports = function(env, argv) {
           exclude: /node_modules/,
           use: ["source-map-loader"],
           enforce: "pre"
+        },
+        {
+          test: /\.(mp3|png|jp(e*)g|svg)$/,
+          loader: "url-loader"
         }
       ]
     },

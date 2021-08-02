@@ -1,5 +1,5 @@
 SampleAppUtilities = (function () {
-    var vocalGuidanceSoundFilesDirectory = "../../../../sample-app-resources/Vocal_Guidance_Audio_Files/";
+    var vocalGuidanceSoundFilesDirectory = "../../sample-app-resources/Vocal_Guidance_Audio_Files/";
     var VocalGuidanceMode;
     (function (VocalGuidanceMode) {
         VocalGuidanceMode[VocalGuidanceMode["MINIMAL"] = 0] = "MINIMAL";
@@ -10,6 +10,12 @@ SampleAppUtilities = (function () {
     var vocalGuidanceOffPlayer = new Audio(vocalGuidanceSoundFilesDirectory + "vocal_guidance_off.mp3");
     vocalGuidanceOnPlayer.volume = 0.4;
     vocalGuidanceOffPlayer.volume = 0.4;
+    vocalGuidanceOffPlayer.onended = function () {
+        enableVocalGuidanceButtons();
+    };
+    vocalGuidanceOnPlayer.onended = function () {
+        enableVocalGuidanceButtons();
+    };
     var vocalGuidanceMode = VocalGuidanceMode.MINIMAL;
     function displayStatus(message) {
         document.getElementById("status").innerHTML = message;
@@ -27,9 +33,7 @@ SampleAppUtilities = (function () {
         }
         SampleAppUIFunctions("#controls").fadeIn(800, function () {
             enableControlButtons();
-            document.querySelectorAll(".vocal-icon").forEach(function (icon) {
-                icon.removeAttribute("disabled");
-            });
+            enableVocalGuidanceButtons();
             if (callback) {
                 callback();
             }
@@ -42,9 +46,7 @@ SampleAppUtilities = (function () {
             SampleAppUIFunctions("footer").fadeOut(800);
             SampleAppUIFunctions("#custom-logo-container").fadeOut(800);
             SampleAppUIFunctions("#vocal-icon-container").fadeOut(800);
-            document.querySelectorAll(".vocal-icon").forEach(function (icon) {
-                icon.setAttribute("disabled", "true");
-            });
+            disableVocalGuidanceButtons();
         }
         SampleAppUIFunctions("#controls").fadeOut(800);
         SampleAppUIFunctions(".wrapping-box-container").fadeOut(800);
@@ -79,14 +81,12 @@ SampleAppUtilities = (function () {
     }
     function generateUUId() {
         // @ts-ignore
-        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, function (c) {
-            return (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16);
-        });
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, function (c) { return (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16); });
     }
     function formatUIForDevice() {
         if (isLikelyMobileDevice()) {
             // Adjust button sizing
-            document.querySelectorAll("#controls > button").forEach(function (element) {
+            document.querySelectorAll("button").forEach(function (element) {
                 if (element.className === "big-button") {
                     element.style.height = "40px";
                     element.style.fontSize = "18px";
@@ -153,7 +153,18 @@ SampleAppUtilities = (function () {
             SampleAppUIFunctions("hr").css({ "width": copyRightStringLength + "px" });
         }
     }
+    function disableVocalGuidanceButtons() {
+        document.querySelectorAll(".vocal-icon").forEach(function (button) {
+            button.setAttribute("disabled", "true");
+        });
+    }
+    function enableVocalGuidanceButtons() {
+        document.querySelectorAll(".vocal-icon").forEach(function (button) {
+            button.removeAttribute("disabled");
+        });
+    }
     function setVocalGuidanceMode() {
+        disableVocalGuidanceButtons();
         if (!vocalGuidanceOnPlayer.paused || !vocalGuidanceOffPlayer.paused) {
             return;
         }
@@ -186,12 +197,8 @@ SampleAppUtilities = (function () {
         FaceTecSDK.setCustomization(Config.currentCustomization);
     }
     function setVocalGuidanceSoundFiles() {
-        Config.currentCustomization.vocalGuidanceCustomization.pleaseFrameYourFaceInTheOvalSoundFile = vocalGuidanceSoundFilesDirectory + "please_frame_your_face_sound_file.mp3";
-        Config.currentCustomization.vocalGuidanceCustomization.pleaseMoveCloserSoundFile = vocalGuidanceSoundFilesDirectory + "please_move_closer_sound_file.mp3";
-        Config.currentCustomization.vocalGuidanceCustomization.pleaseRetrySoundFile = vocalGuidanceSoundFilesDirectory + "please_retry_sound_file.mp3";
-        Config.currentCustomization.vocalGuidanceCustomization.uploadingSoundFile = vocalGuidanceSoundFilesDirectory + "uploading_sound_file.mp3";
-        Config.currentCustomization.vocalGuidanceCustomization.facescanSuccessfulSoundFile = vocalGuidanceSoundFilesDirectory + "facescan_successful_sound_file.mp3";
-        Config.currentCustomization.vocalGuidanceCustomization.pleasePressTheButtonToStartSoundFile = vocalGuidanceSoundFilesDirectory + "please_press_button_sound_file.mp3";
+        var soundFileUtilities = new SoundFileUtilities();
+        Config.currentCustomization = soundFileUtilities.setVocalGuidanceSoundFiles(Config.currentCustomization);
         FaceTecSDK.setCustomization(Config.currentCustomization);
     }
     function isLikelyMobileDevice() {
@@ -287,7 +294,6 @@ SampleAppUtilities = (function () {
         enableControlButtons: enableControlButtons,
         generateUUId: generateUUId,
         formatUIForDevice: formatUIForDevice,
-        handleErrorGettingServerSessionToken: handleErrorGettingServerSessionToken,
         setVocalGuidanceSoundFiles: setVocalGuidanceSoundFiles,
         setVocalGuidanceMode: setVocalGuidanceMode,
         showMainUI: showMainUI,
@@ -295,6 +301,7 @@ SampleAppUtilities = (function () {
         showLoadingSessionToken: showLoadingSessionToken,
         isLikelyMobileDevice: isLikelyMobileDevice,
         UI: SampleAppUIFunctions,
-        showAuditTrailImages: showAuditTrailImages
+        showAuditTrailImages: showAuditTrailImages,
+        handleErrorGettingServerSessionToken: handleErrorGettingServerSessionToken
     };
 })();
