@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme: Theme) => {
       borderRadius: "150px",
       boxShadow: "0px 2px 20px 4px",
       backgroundColor: (props: any) => {
-        console.log("style", JSON.stringify(props));
         const ret = props.isPlaying
           ? props.isWorkingout
             ? "#608859"
@@ -69,54 +68,37 @@ const Play: React.FC<{}> = () => {
   const [isWorkingout, setIsWorkingout] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const secondChanged = useCallback((second: number) => {
-    secRef.current.innerText = padStart(toString(second), 2, "0");
-  }, []);
-
-  const humdredthChenged = useCallback((hundredth: number) => {
-    humRef.current.innerText = padStart(toString(hundredth), 2, "0");
-  }, []);
-
-  const finishCallback = useCallback(() => {
-    navigator.vibrate([500, 200, 500]);
-    const itIsGonnaWorkOut = !isWorkingout;
-    var url = itIsGonnaWorkOut ? workaudioUrl : restAudioUrl;
-    var audio = new Audio(url);
-    audio.play();
-
-    setIsWorkingout(itIsGonnaWorkOut);
-  }, [isWorkingout]);
-
   useEffect(() => {
+    if (!noSleep.isEnabled) {
+      noSleep.enable();
+    }
+    stopwatch.onUpdateHundredth = (hundredth: number) =>
+      (humRef.current.innerText = padStart(toString(hundredth), 2, "0"));
+
+    stopwatch.onUpdateSecond = (second: number) =>
+      (secRef.current.innerText = padStart(toString(second), 2, "0"));
+
+    stopwatch.finishCallback = () =>
+      setIsWorkingout((isWorkingout) => !isWorkingout);
+
     return () => {
       stopwatch?.stop();
-      console.log("CDUM");
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!noSleep.isEnabled) noSleep.enable();
-    return () => {
       noSleep.disable();
     };
-  });
+  }, []);
 
   useEffect(() => {
     stopwatch!.reset(isWorkingout ? timer.workOutTimer : timer.restTimer);
+    navigator.vibrate([500, 200, 500]);
+    const url = isWorkingout ? workaudioUrl : restAudioUrl;
+    const audio = new Audio(url);
+    audio.play();
   }, [isWorkingout, timer.restTimer, timer.workOutTimer]);
 
   useEffect(() => {
     if (isPlaying) stopwatch?.start();
     else stopwatch?.stop();
   }, [isPlaying]);
-
-  useEffect(() => {
-    setIsWorkingout(true);
-  }, [timer]);
-
-  stopwatch.onUpdateHundredth = humdredthChenged;
-  stopwatch.onUpdateSecond = secondChanged;
-  stopwatch.finishCallback = finishCallback;
 
   const classes = useStyles({ isWorkingout, isPlaying });
   return (
@@ -162,7 +144,6 @@ const Play: React.FC<{}> = () => {
           size="large"
           onClick={() => {
             setIsPlaying(false);
-            stopwatch?.reset(timer.workOutTimer);
             setIsWorkingout(true);
           }}
         >
