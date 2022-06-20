@@ -1,9 +1,15 @@
-import { createStyles, Fab, makeStyles, Theme } from "@material-ui/core";
+import { Fab, makeStyles, Theme } from "@material-ui/core";
 import { Restore } from "@material-ui/icons";
 import clsx from "clsx";
 import { padStart, toInteger, toString } from "lodash";
 import NoSleep from "nosleep.js";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 import { useLocalStorageState } from "../../hooks/useLocalStorageState";
 import { TimerConfiguration } from "../../types/timerConfiguration";
@@ -61,13 +67,16 @@ const Play: React.FC<{}> = () => {
   const humRef = useRef<any>();
   const { index } = useParams();
 
-  const [x] = useLocalStorageState("timerList", []);
-  const timerList = x as TimerConfiguration[];
-  const timer = timerList[toInteger(index)];
+  const [list]: [
+    timerList: TimerConfiguration[],
+    setList: Dispatch<SetStateAction<TimerConfiguration[]>>,
+    error: Error | undefined
+  ] = useLocalStorageState("timerList", []);
+
+  const timer = list[toInteger(index)];
 
   const [isWorkingout, setIsWorkingout] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-
   useEffect(() => {
     if (!noSleep.isEnabled) {
       noSleep.enable();
@@ -140,9 +149,10 @@ const Play: React.FC<{}> = () => {
       <div className={classes.play}>
         <Fab
           color="primary"
-          aria-label="add"
+          aria-label="reset"
           size="large"
           onClick={() => {
+            stopwatch!.reset(timer.workOutTimer);
             setIsPlaying(false);
             setIsWorkingout(true);
           }}

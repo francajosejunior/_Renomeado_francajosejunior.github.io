@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   Button,
   Dialog,
@@ -19,7 +20,6 @@ import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { toInteger } from "lodash";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorageState } from "../../hooks/useLocalStorageState";
 import { TimerConfiguration } from "../../types/timerConfiguration";
@@ -53,8 +53,11 @@ function Home() {
   const [timeConf, setTimeCong] =
     useState<TimerConfiguration>(initialTimeConfig);
 
-  const [x, setList] = useLocalStorageState("timerList", []);
-  const list = x as TimerConfiguration[];
+  const [list, setList]: [
+    list: TimerConfiguration[],
+    setList: Dispatch<SetStateAction<TimerConfiguration[]>>,
+    error: Error | undefined
+  ] = useLocalStorageState("timerList", []);
 
   const handleListClick = (index: number) => (e: any) => {
     e.preventDefault();
