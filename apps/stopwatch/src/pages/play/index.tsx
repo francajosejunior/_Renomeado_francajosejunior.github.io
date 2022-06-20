@@ -11,6 +11,8 @@ import React, {
   useState,
 } from "react";
 import { useParams } from "react-router-dom";
+import SwitchSound from "../../components/switchSound";
+import SwitchVib from "../../components/switchVib";
 import { useLocalStorageState } from "../../hooks/useLocalStorageState";
 import { TimerConfiguration } from "../../types/timerConfiguration";
 import Stopwtach from "../../util/stopwatch";
@@ -63,6 +65,16 @@ const useStyles = makeStyles((theme: Theme) => {
 let stopwatch: Stopwtach = new Stopwtach();
 
 const Play: React.FC<{}> = () => {
+  const [hasPlayed, setHasPlayed] = useState<boolean>(false);
+  const [isSoundOn, setSoundOn] = useLocalStorageState<boolean>(
+    "isSoundOn",
+    true
+  );
+  const isSoundOnRef = useRef<boolean>(isSoundOn);
+
+  const [isVibOn, setVibOn] = useLocalStorageState<boolean>("isVibOn", true);
+  const isVibOnRef = useRef<boolean>(isVibOn);
+
   const secRef = useRef<any>();
   const humRef = useRef<any>();
   const { index } = useParams();
@@ -75,7 +87,7 @@ const Play: React.FC<{}> = () => {
 
   const timer = list[toInteger(index)];
 
-  const [isWorkingout, setIsWorkingout] = useState(true);
+  const [isWorkingout, setIsWorkingout] = useState<boolean>(true);
   const [isPlaying, setIsPlaying] = useState(false);
   useEffect(() => {
     if (!noSleep.isEnabled) {
@@ -97,16 +109,23 @@ const Play: React.FC<{}> = () => {
   }, []);
 
   useEffect(() => {
-    stopwatch!.reset(isWorkingout ? timer.workOutTimer : timer.restTimer);
-    navigator.vibrate([500, 200, 500]);
-    const url = isWorkingout ? workaudioUrl : restAudioUrl;
-    const audio = new Audio(url);
-    audio.play();
-  }, [isWorkingout, timer.restTimer, timer.workOutTimer]);
+    if (hasPlayed) {
+      stopwatch!.reset(isWorkingout ? timer.workOutTimer : timer.restTimer);
+      if (isVibOnRef.current) {
+        navigator.vibrate([500, 200, 500]);
+      }
+      if (isSoundOnRef.current) {
+        const url = isWorkingout ? workaudioUrl : restAudioUrl;
+        const audio = new Audio(url);
+        audio.play();
+      }
+    }
+  }, [isWorkingout, hasPlayed, timer.restTimer, timer.workOutTimer]);
 
   useEffect(() => {
-    if (isPlaying) stopwatch?.start();
-    else stopwatch?.stop();
+    if (isPlaying) {
+      stopwatch?.start();
+    } else stopwatch?.stop();
   }, [isPlaying]);
 
   const classes = useStyles({ isWorkingout, isPlaying });
@@ -116,7 +135,10 @@ const Play: React.FC<{}> = () => {
       <div className={classes.display}>
         <div
           className={clsx(classes.displayWrapper, isPlaying && "pulse")}
-          onClick={() => setIsPlaying(!isPlaying)}
+          onClick={() => {
+            setIsPlaying(!isPlaying);
+            setHasPlayed(true);
+          }}
         >
           <h3
             style={{
@@ -159,6 +181,24 @@ const Play: React.FC<{}> = () => {
         >
           <Restore />
         </Fab>
+        <SwitchSound
+          isSoundOn={isSoundOn}
+          switchSound={() =>
+            setSoundOn((isSoundOn) => {
+              isSoundOnRef.current = !isSoundOn;
+              return !isSoundOn;
+            })
+          }
+        />
+        <SwitchVib
+          isVibOn={isVibOn}
+          switchVib={() =>
+            setVibOn((isVibOn) => {
+              isVibOnRef.current = !isVibOn;
+              return !isVibOn;
+            })
+          }
+        />
       </div>
     </div>
   );

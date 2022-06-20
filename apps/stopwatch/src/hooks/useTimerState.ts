@@ -1,6 +1,6 @@
 import { TimerConfiguration } from '../types/timerConfiguration';
 import { useStorageState } from 'react-storage-hooks';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function useTimerState(initial: TimerConfiguration[]) {
     const [list, setList] = useStorageState<TimerConfiguration[]>(localStorage, "timerList", initial);
@@ -10,11 +10,10 @@ export function useTimerState(initial: TimerConfiguration[]) {
     ];
 }
 
-
-export function useRendersCount() {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const renderCounter = useRef<number>(0);
-    renderCounter.current = renderCounter.current + 1;
-    const resetCounter = () => renderCounter.current = 0
-    return [renderCounter.current, resetCounter]
-}
+export const useDidMount = () => {
+    const isMountRef = useRef(false);
+    useEffect(() => {
+        isMountRef.current = true;
+    }, []);
+    return isMountRef.current;
+};
