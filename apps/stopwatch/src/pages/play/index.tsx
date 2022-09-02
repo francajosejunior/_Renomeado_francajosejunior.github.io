@@ -2,7 +2,7 @@ import { Fab } from "@material-ui/core";
 import { Restore } from "@material-ui/icons";
 import clsx from "clsx";
 import { padStart, toInteger, toString } from "lodash";
-import React, { Dispatch, SetStateAction, useRef } from "react";
+import React, { useRef } from "react";
 import { useParams } from "react-router-dom";
 import SwitchSound from "../../components/switchSound";
 import SwitchVib from "../../components/switchVib";
@@ -41,7 +41,7 @@ const Play: React.FC<{}> = () => {
     toggleSound,
     toggleVid,
   } = useTimer(config);
-  
+
   const classes = useStyles({ isWorkingout, isPlaying });
   return (
     <div className={classes.root}>
