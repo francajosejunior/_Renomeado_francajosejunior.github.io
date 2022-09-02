@@ -24,6 +24,7 @@ export interface UseTimerResult {
     isPlaying: boolean,
     isSoundOn: boolean,
     isVibOn: boolean,
+    countDown: number | null,
     play: () => void,
     reset: () => void,
     toggleSound: () => void,
@@ -42,6 +43,7 @@ export default ({
     const [isWorkingout, setIsWorkingout] = useState<boolean>(true)
     const [isPlaying, setIsPlaying] = useState(false);
     const [hasPlayed, setHasPlayed] = useState<boolean>(false);
+    const [countDown, setCountDown] = useState<number | null>(null);
 
     const [isSoundOn, setSoundOn] = useLocalStorageState<boolean>(
         "isSoundOn",
@@ -99,17 +101,36 @@ export default ({
         }
     }, [isWorkingout, hasPlayed]);
 
-
     useEffect(() => {
         if (!noSleep.isEnabled) {
             noSleep.enable();
         }
     }, []);
 
+    useEffect(() => {
+        let t: any;
+        if (countDown !== null) {
+            t = setTimeout(() => { setCountDown(countDown - 1) }, 1000)
+        }
+
+        if (countDown !== null && countDown < 0) {
+            setCountDown(null)
+            setIsPlaying(true)
+            setHasPlayed(true)
+        }
+
+
+
+        return () => clearTimeout(t)
+    }, [countDown, isPlaying])
+
+
 
     const play = () => {
-        setIsPlaying(!isPlaying)
-        setHasPlayed(true)
+        if (isPlaying)
+            setIsPlaying(false)
+        else
+            setCountDown(3);
     }
     const reset = () => {
         currentSecond = 0
@@ -137,7 +158,7 @@ export default ({
         isWorkingout,
         isPlaying,
         isSoundOn,
-        isVibOn,
+        isVibOn, countDown,
         play,
         reset,
         toggleSound,

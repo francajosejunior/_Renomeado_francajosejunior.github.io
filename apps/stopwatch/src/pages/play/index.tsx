@@ -1,7 +1,7 @@
 import { Fab } from "@material-ui/core";
 import { Restore } from "@material-ui/icons";
 import clsx from "clsx";
-import { padStart, toInteger, toString } from "lodash";
+import { isNil, padStart, toInteger, toString } from "lodash";
 import React, { useRef } from "react";
 import { useParams } from "react-router-dom";
 import SwitchSound from "../../components/switchSound";
@@ -36,6 +36,7 @@ const Play: React.FC<{}> = () => {
     isPlaying,
     isSoundOn,
     isVibOn,
+    countDown,
     play,
     reset,
     toggleSound,
@@ -86,6 +87,9 @@ const Play: React.FC<{}> = () => {
         <SwitchSound isSoundOn={isSoundOn} switchSound={toggleSound} />
         <SwitchVib isVibOn={isVibOn} switchVib={toggleVid} />
       </div>
+      {!isNil(countDown) && (
+        <div className={classes.countDown}>{countDown}</div>
+      )}
     </div>
   );
 };

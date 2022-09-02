@@ -36,5 +36,18 @@ export const useStyles = makeStyles((theme: Theme) => {
         return ret;
       },
     },
+    countDown: {
+      backgroundColor: "rgba(0,0,0,.8)",
+      position: "fixed",
+      top: 0,
+      left: 0,
+      height: "100vh",
+      width: "100vw",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      fontSize: "9em",
+      color: "white",
+    },
   };
 });
