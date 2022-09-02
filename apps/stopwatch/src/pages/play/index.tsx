@@ -1,16 +1,16 @@
 import { Fab } from "@material-ui/core";
 import { Restore } from "@material-ui/icons";
 import clsx from "clsx";
-import { isNil, padStart, toInteger, toString } from "lodash";
+import { isNil, padStart, toInteger } from "lodash";
 import React, { useRef } from "react";
 import { useParams } from "react-router-dom";
 import SwitchSound from "../../components/switchSound";
 import SwitchVib from "../../components/switchVib";
 import { useLocalStorageState } from "../../hooks/useLocalStorageState";
 import { Title } from "./title";
-import { TimeListStateType } from "./types";
+import { TimeListStateType, UseTimerProps } from "./types";
 import { useStyles } from "./useStyles";
-import useTimer, { UseTimerProps } from "./useTimer";
+import useTimer from "./useTimer";
 
 const Play: React.FC<{}> = () => {
   const { index } = useParams();
@@ -23,11 +23,11 @@ const Play: React.FC<{}> = () => {
 
   const config: UseTimerProps = {
     intervals: [timer.workOutTimer, timer.restTimer],
-    onUpdateHundredth: (hundredth: number) => {
-      humRef.current.innerText = padStart(toString(hundredth), 2, "0");
-    },
-    onUpdateSecond: (second: number) => {
-      secRef.current.innerText = padStart(toString(second), 2, "0");
+    onUpdateTick: (tick: number) => {
+      var s = (tick / 1000).toFixed(0);
+      var m = tick.toString().padStart(4, "0").substring(1, 2);
+      secRef.current.innerText = s.padStart(2, "0");
+      humRef.current.innerText = m;
     },
   };
 

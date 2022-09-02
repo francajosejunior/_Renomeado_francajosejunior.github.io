@@ -19,7 +19,7 @@ export const useStyles = makeStyles((theme: Theme) => {
     displayWrapper: {
       display: "flex",
       flexDirection: "row",
-      padding: "62px 40px",
+      padding: "62px 50px",
       border: "solid 0.5px",
       borderRadius: "150px",
       boxShadow: "0px 2px 20px 4px",

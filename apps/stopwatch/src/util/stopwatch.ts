@@ -4,7 +4,7 @@ export default class Stopwtach {
     currentHundredth = 0
     limit: number = 0
     onUpdateSecond: (second: number) => void = () => { }
-    onUpdateHundredth: (hundredth: number) => void = () => { }
+    onUpdateTick: (hundredth: number) => void = () => { }
     finishCallback: () => void = () => { }
 
     public start() {
@@ -18,7 +18,7 @@ export default class Stopwtach {
                 this.onUpdateSecond(this.currentSecond)
             }
 
-            this.onUpdateHundredth(this.currentHundredth)
+            this.onUpdateTick(this.currentHundredth)
 
             if (this.currentSecond >= this.limit) {
                 this.finishCallback()
@@ -35,7 +35,7 @@ export default class Stopwtach {
         this.currentSecond = 0
         this.currentHundredth = 0
         this.onUpdateSecond(this.currentSecond)
-        this.onUpdateHundredth(this.currentHundredth)
+        this.onUpdateTick(this.currentHundredth)
     }
 }
 
