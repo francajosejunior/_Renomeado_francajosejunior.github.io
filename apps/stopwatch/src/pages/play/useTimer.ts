@@ -106,35 +106,41 @@ export default ({
         }
     }, []);
 
+
+    const play = () => {
+        setIsPlaying(!isPlaying)
+        setHasPlayed(true)
+    }
+    const reset = () => {
+        currentSecond = 0
+        currentHundredth = 0
+        setIsPlaying(false)
+        setHasPlayed(false)
+        setIsWorkingout(true)
+        onUpdateHundredth(currentHundredth)
+        onUpdateSecond(currentSecond)
+    }
+
+    const toggleSound = () => {
+        setSoundOn(isSoundOn => {
+            isSoundOnRef.current = !isSoundOn
+            return !isSoundOn
+        })
+    }
+    const toggleVid = () => {
+        setVibOn(x => {
+            isVibOnRef.current = !x
+            return !x
+        })
+    }
     return {
         isWorkingout,
         isPlaying,
         isSoundOn,
         isVibOn,
-        play: () => {
-            setIsPlaying(!isPlaying)
-            setHasPlayed(true)
-        },
-        reset: () => {
-            currentSecond = 0
-            currentHundredth = 0
-            setIsPlaying(false)
-            setHasPlayed(false)
-            setIsWorkingout(true)
-            onUpdateHundredth(currentHundredth)
-            onUpdateSecond(currentSecond)
-        },
-        toggleSound: () => {
-            setSoundOn(isSoundOn => {
-                isSoundOnRef.current = !isSoundOn
-                return !isSoundOn
-            })
-        },
-        toggleVid: () => {
-            setVibOn(x => {
-                isVibOnRef.current = !x
-                return !x
-            })
-        },
+        play,
+        reset,
+        toggleSound,
+        toggleVid,
     } as UseTimerResult;
 }
