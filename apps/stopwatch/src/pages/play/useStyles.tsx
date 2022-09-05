@@ -31,7 +31,7 @@ export const useStyles = makeStyles((theme: Theme) => {
           ? props.isWorkingout
             ? "#608859"
             : "#905959"
-          : "transparent"; //"#1eac05", //'#ca0c0c'
+          : "#1e1e1e"; //"#1eac05", //'#ca0c0c'
 
         return ret;
       },
